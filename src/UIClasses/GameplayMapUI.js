@@ -1,5 +1,14 @@
-const SCALE = 0.1;
+import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
+import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
+import {GAMEPLAY_SCALE} from "./GameplayUi.js"
+
+const MINIMAP_SCALE = 0.1;
 const PORT_SCALE = 0.1;
+
+const SCALE_RELATIVE_TO_GAMEPLAY = MINIMAP_SCALE / GAMEPLAY_SCALE
+
+const OFFSET_WIDTH = GAME_CANVA_WIDTH * SCALE_RELATIVE_TO_GAMEPLAY;
+const OFFSET_HEIGTH = GAME_CANVA_HEIGHT * SCALE_RELATIVE_TO_GAMEPLAY;
 
 const LIGHT_WIDTH = 29*PORT_SCALE;
 const LIGHT_HEIGHT = 46*PORT_SCALE;
@@ -7,22 +16,19 @@ const LIGHT_HEIGHT = 46*PORT_SCALE;
 const PORT_WIDTH = 78*PORT_SCALE;
 const PORT_HEIGHT = 35*PORT_SCALE;
 
-const LEAF_WIDTH = 85*SCALE;
-const LEAF_HEIGHT = 84*SCALE;
+const LEAF_WIDTH = 85*MINIMAP_SCALE;
+const LEAF_HEIGHT = 84*MINIMAP_SCALE;
 
 const TUBE_WIDTH = 20*PORT_SCALE;
 const TUBE_HEIGHT = 20*PORT_SCALE;
 
-const SHORTCUT_WIDTH = 20*SCALE;
-const SHORTCUT_HEIGHT = 20*SCALE;
+const SHORTCUT_WIDTH = 20*MINIMAP_SCALE;
+const SHORTCUT_HEIGHT = 20*MINIMAP_SCALE;
 
-const FLOOR_WIDTH = 640*SCALE;
-const FLOOR_HEIGHT = 360*SCALE;
+const FLOOR_WIDTH = 640*MINIMAP_SCALE;
+const FLOOR_HEIGHT = 360*MINIMAP_SCALE;
 
-const EDGE = (PORT_WIDTH/PORT_SCALE)*SCALE;
-
-export const CLICK_AREA_W = PORT_WIDTH;
-export const CLICK_AREA_H = PORT_HEIGHT;
+const EDGE = (PORT_WIDTH/PORT_SCALE)*MINIMAP_SCALE;
 
 const ON = 1;
 const OFF = 0;
@@ -44,14 +50,22 @@ export class GameplayMapUi{
     verticalTube = [];
     shortcutImage = new Image();
     floor = new Image();
+    mapedScenery;
+
+    offsetX = 0;
+    offsetY = 0;
+
+    focus = false;
 
     canva;
     context;
 
 
-    constructor(canva, head, currentNode){
+    constructor(canva, head, mapedScenery){
         this.canva = canva;
         this.context = canva.getContext('2d');
+
+        this.mapedScenery = mapedScenery;
 
         this.onLight.src = "./res/onLamp.png";
         this.offLight.src = "./res/offLamp.png";
@@ -133,6 +147,8 @@ export class GameplayMapUi{
         this.context.drawImage(light, x - LIGHT_WIDTH/ 2, y, LIGHT_WIDTH, LIGHT_HEIGHT);
 
         this.paintTree(head, this.canvaWidth/2, y + EDGE);
+
+        this.paintOffsetRegion(head);
     }
 
     //desenha a arvore de portas
@@ -152,7 +168,7 @@ export class GameplayMapUi{
 
         if(head.Rinput != null){
            
-            this.paintTree(head.Rinput, x + EDGE + head.Rinput.bifurcation*EDGE , y + PORT_HEIGHT/1.3 + TUBE_HEIGHT + head.Rinput.bifurcation * 2 );
+            this.paintTree(head.Rinput, x + EDGE + head.Rinput.bifurcation*EDGE , y + PORT_HEIGHT/1.3 + TUBE_HEIGHT + head.Rinput.bifurcation* MINIMAP_SCALE * 2 );
             this.paintRightTube(head);
         }
     }
@@ -269,5 +285,25 @@ export class GameplayMapUi{
         }else if(head.port.id == "FALSE"){
             this.context.drawImage(this.energyFont[OFF], head.xInMap - LEAF_WIDTH/2, head.yInMap - LEAF_HEIGHT/2, LEAF_WIDTH, LEAF_HEIGHT);
         }
+    }
+
+    paintOffsetRegion(head){
+        this.context.strokeStyle = "black";
+        
+        this.offsetRecalculate();
+        this.context.strokeRect(this.canvaWidth/2 + this.offsetX - OFFSET_WIDTH/2, 0 + this.offsetY, OFFSET_WIDTH, OFFSET_HEIGTH);
+    }   
+    
+    offsetRecalculate(){
+        this.offsetX = this.mapedScenery.getOffsetX() * SCALE_RELATIVE_TO_GAMEPLAY;
+        this.offsetY = this.mapedScenery.getOffsetY() * SCALE_RELATIVE_TO_GAMEPLAY;
+    }
+
+    requestFocus(){
+        this.focus = true;
+    }
+
+    realeseFocus(){
+        focus = false;
     }
 }

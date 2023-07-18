@@ -1,12 +1,17 @@
 import {CLICK_AREA_W} from "./GameplayUi.js";
 import {CLICK_AREA_H} from "./GameplayUi.js";
-import { canvaHeight } from "../GameOperatingClasses/constant.js";
-import { canvaWidth } from "../GameOperatingClasses/constant.js";
+import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
+import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
 import {GameplayUi} from "./GameplayUi.js";
+import { GameplayState } from "../GameOperatingClasses/States/GameplayState.js";
 
-export function handleClick(event, G, gui){
+export function canvaGamaplayHandleClick(event, gameplayState){
     let clickX = event.offsetX;
     let clickY = event.offsetY;
+    let gui = gameplayState.gameplayGui
+    let G = gameplayState.gameTree.G;
+
+    gameplayState.mapUi.realeseFocus();
 
     if(clickX > gui.shortcutUI.outputButton.x && clickX < gui.shortcutUI.outputButton.x + gui.shortcutUI.outputButton.w
         && clickY > gui.shortcutUI.outputButton.y && clickY < gui.shortcutUI.outputButton.y + gui.shortcutUI.outputButton.h){
@@ -48,33 +53,41 @@ export function handleClick(event, G, gui){
 
 }
 
-export function handleMove(event, gui){
+export function canvaGamaplayHandleMove(event, gui){
     let mousePositionX =  event.offsetX;
     let mousePositionY = event.offsetY;
 
     if(gui.inShotcutScene != true){
-        if(mousePositionX >= canvaWidth*0.8){
+        if(mousePositionX >= GAME_CANVA_WIDTH*0.8){
             gui.horizontalPositiveMove= true;
         }else{
             gui.horizontalPositiveMove= false;
         }
         
-        if(mousePositionX<= canvaWidth*0.2){
+        if(mousePositionX<= GAME_CANVA_WIDTH*0.2){
             gui.horizontalNegativeMove = true;
         }else{
             gui.horizontalNegativeMove = false;
         }
     
-        if(mousePositionY >= canvaHeight*0.8){
+        if(mousePositionY >= GAME_CANVA_HEIGHT*0.8){
             gui.verticalPositiveMove= true;
         }else{
             gui.verticalPositiveMove= false;
         }
         
-        if(mousePositionY<= canvaHeight*0.2){
+        if(mousePositionY<= GAME_CANVA_HEIGHT*0.2){
             gui.verticalNegativeMove = true;
         }else{
             gui.verticalNegativeMove = false;
         }
+    }
+}
+
+export function canvaMiniMapHandleClick(event, state){
+    if(!state.mapUi.focus){
+        requestFocus();
+    }else{
+        realeaseFocus();
     }
 }

@@ -1,27 +1,27 @@
-import { canvaHeight } from "../GameOperatingClasses/constant.js";
-import { canvaWidth } from "../GameOperatingClasses/constant.js";
-import { handleMove } from "./haddleListener.js";
+import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
+import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
+import { canvaGamaplayHandleMove } from "./haddleListener.js";
 import { ShortcutUIFunc } from "./OperatingUIAssitentsClasses/ShortcutUIFunc.js";
 
-const SCALE = 1.5;
+export const GAMEPLAY_SCALE = 1.5;
 
-const LIGHT_WIDTH = 29*SCALE;
-const LIGHT_HEIGHT = 46*SCALE;
+const LIGHT_WIDTH = 29*GAMEPLAY_SCALE;
+const LIGHT_HEIGHT = 46*GAMEPLAY_SCALE;
 
-const PORT_WIDTH = 78*SCALE;
-const PORT_HEIGHT = 35*SCALE;
+const PORT_WIDTH = 78*GAMEPLAY_SCALE;
+const PORT_HEIGHT = 35*GAMEPLAY_SCALE;
 
-const LEAF_WIDTH = 85*SCALE;
-const LEAF_HEIGHT = 84*SCALE;
+const LEAF_WIDTH = 85*GAMEPLAY_SCALE;
+const LEAF_HEIGHT = 84*GAMEPLAY_SCALE;
 
-const TUBE_WIDTH = 20*SCALE;
-const TUBE_HEIGHT = 20*SCALE;
+const TUBE_WIDTH = 20*GAMEPLAY_SCALE;
+const TUBE_HEIGHT = 20*GAMEPLAY_SCALE;
 
-const SHORTCUT_WIDTH = 20*SCALE;
-const SHORTCUT_HEIGHT = 20*SCALE;
+const SHORTCUT_WIDTH = 20*GAMEPLAY_SCALE;
+const SHORTCUT_HEIGHT = 20*GAMEPLAY_SCALE;
 
-const FLOOR_WIDTH = 640*SCALE;
-const FLOOR_HEIGHT = 360*SCALE;
+const FLOOR_WIDTH = 640*GAMEPLAY_SCALE;
+const FLOOR_HEIGHT = 360*GAMEPLAY_SCALE;
 
 const EDGE = PORT_WIDTH;
 
@@ -70,7 +70,7 @@ export class GameplayUi{
         this.context = canva.getContext('2d');
 
         this.canva.addEventListener('mousemove', (event)=>{
-            handleMove(event, this);
+            canvaGamaplayHandleMove(event, this);
         });
 
 
@@ -138,7 +138,7 @@ export class GameplayUi{
 
     //redesenha toda a tela da gameplay
     paintGameBoard(head){
-        const x = canvaWidth/2;
+        const x = GAME_CANVA_WIDTH/2;
         const y = EDGE;
 
         this.offSetRecalculate();
@@ -152,13 +152,13 @@ export class GameplayUi{
             light = this.offLight;
         }
 
-        this.context.clearRect(0, 0, canvaWidth , canvaHeight);
-        //this.context.drawImage(this.floor, 0, 0, FLOOR_WIDTH*SCALE, FLOOR_HEIGHT*SCALE);
+        this.context.clearRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
+        //this.context.drawImage(this.floor, 0, 0, FLOOR_WIDTH*GAMEPLAY_SCALE, FLOOR_HEIGHT*GAMEPLAY_SCALE);
 
-        this.paintLine(x, y + EDGE, canvaWidth/2, y + EDGE);
+        this.paintLine(x, y + EDGE, GAME_CANVA_WIDTH/2, y + EDGE);
         this.context.drawImage(light, x - LIGHT_WIDTH/ 2  - this.offsetX, y - this.offsetY , LIGHT_WIDTH, LIGHT_HEIGHT);
 
-        this.paintTree(head, canvaWidth/2 - this.offsetX , y + EDGE - this.offsetY);
+        this.paintTree(head, GAME_CANVA_WIDTH/2 - this.offsetX , y + EDGE - this.offsetY);
     }
 
     //desenha a arvore de portas
@@ -184,11 +184,11 @@ export class GameplayUi{
         }
 
         /*if(head.Linput != null){
-            this.paintLine(x, y, x - EDGE - head.Linput.bifurcation*EDGE, y + (PORT_HEIGHT/1.3 + TUBE_HEIGHT)*SCALE);
+            this.paintLine(x, y, x - EDGE - head.Linput.bifurcation*EDGE, y + (PORT_HEIGHT/1.3 + TUBE_HEIGHT)*GAMEPLAY_SCALE);
         }
 
         if(head.Rinput != null){
-            this.paintLine(x, y, x + EDGE + head.Rinput.bifurcation*EDGE, y + (PORT_HEIGHT/1.3 + TUBE_HEIGHT)*SCALE);
+            this.paintLine(x, y, x + EDGE + head.Rinput.bifurcation*EDGE, y + (PORT_HEIGHT/1.3 + TUBE_HEIGHT)*GAMEPLAY_SCALE);
         }*/
         if(head == this.currentNode){
             this.paintShortcut(head); 
@@ -407,23 +407,23 @@ export class GameplayUi{
                 this.offsetY -= 10;
             }
         }else{
-            if(canvaWidth/2 - 10 <= this.currentNode.x && canvaWidth/2 + 10 >= this.currentNode.x &&
-            canvaHeight/2 - 10 <= this.currentNode.y && canvaHeight/2 + 10 >= this.currentNode.y){
+            if(GAME_CANVA_WIDTH/2 - 10 <= this.currentNode.x && GAME_CANVA_WIDTH/2 + 10 >= this.currentNode.x &&
+            GAME_CANVA_HEIGHT/2 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/2 + 10 >= this.currentNode.y){
                 this.inShortcutScene = false
                 this.horizontalPositiveMove = false;
                 this.horizontalNegativeMove = false;
                 this.verticalPositiveMove = false;
                 this.verticalNegativeMove = false ;
             }else{
-                if(canvaWidth/2 - 10 > this.currentNode.x ){
+                if(GAME_CANVA_WIDTH/2 - 10 > this.currentNode.x ){
                     this.offsetX -= 10;
-                }else if( canvaWidth/2 + 10 < this.currentNode.x ){
+                }else if( GAME_CANVA_WIDTH/2 + 10 < this.currentNode.x ){
                     this.offsetX += 10;
                 }
                 
-                if(canvaHeight/2 - 10 > this.currentNode.y ){
+                if(GAME_CANVA_HEIGHT/2 - 10 > this.currentNode.y ){
                     this.offsetY -= 10;
-                }else if( canvaHeight/2 + 10 < this.currentNode.y ){
+                }else if( GAME_CANVA_HEIGHT/2 + 10 < this.currentNode.y ){
                     this.offsetY += 10;
                 }
             }
@@ -432,5 +432,21 @@ export class GameplayUi{
 
     setCurrentNode(node){
         this.currentNode = node;
+    }
+
+    getOffsetX(){
+        return this.offsetX;
+    }
+
+    getOffsetY(){
+        return this.offsetY;
+    }
+    
+    setOffsetX(){
+
+    }
+
+    setOffsetY(){
+
     }
 }
