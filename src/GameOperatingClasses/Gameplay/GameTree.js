@@ -33,7 +33,10 @@ export class GameTree{
 
     obs.: nós folas não inclusos*/
     init(nNode, nMod){
-        this.genRandomTree(this.G[0], nNode)
+        while(this.G.length<nNode){
+            this.genRandomTree(this.G[this.G.length-1], nNode)
+            console.log(this.G.length);
+        }
         this.initTree(nNode, nMod);
     }
 
@@ -42,8 +45,8 @@ export class GameTree{
     enquanto maxNodes é o número máximo de nós*/
     genRandomTree(node, maxNodes){
 
-        let n = this.getRandomIntInclusive(0,2);
-
+        let n = this.getRandomIntInclusive(0,5);
+        
         if(n == 1){
             if(this.G.length + 1 <= maxNodes){
         
