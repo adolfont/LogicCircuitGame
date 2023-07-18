@@ -1,7 +1,7 @@
 import { canvaHeight } from "../GameOperatingClasses/constant.js";
 import { canvaWidth } from "../GameOperatingClasses/constant.js";
 import { handleMove } from "./haddleListener.js";
-import { ShortcutUIFunc } from "./OperatingAssitentsClasses/ShortcutUIFunc.js";
+import { ShortcutUIFunc } from "./OperatingUIAssitentsClasses/ShortcutUIFunc.js";
 
 const SCALE = 1.5;
 
