@@ -6,6 +6,8 @@ import {FalsePort} from "../Ports/FalsePort.js"
 export class Node{
     x = 0;
     y = 0;
+    xInMap = 0;
+    yInMap = 0;
     output = null;
     Linput = null;
     Rinput = null;
