@@ -1,18 +1,22 @@
-import {handleClick} from "../../UIClasses/haddleListener.js";
+import {canvaGamaplayHandleClick} from "../../UIClasses/haddleListener.js";
+import { canvaMiniMapHandleClick } from "../../UIClasses/haddleListener.js";
 import {GameplayUi} from "../../UIClasses/GameplayUi.js";
 import {GameTree} from "../Gameplay/GameTree.js"
 import { GameplayMapUi } from "../../UIClasses/GameplayMapUI.js";
 
 export class GameplayState{
-    gameplayCanva;
     wiondow;
-    gameplayContext;
+
+    gameplayCanva;
     mapCanva;
+
+    gameplayContext;
     mapContext;
 
     gameplayGui;
     mapUi;
-    
+
+    gameTree;
 
     constructor(canvaGameplay, canvaMap, window){
         this.gameplayCanva =  canvaGameplay;
@@ -23,24 +27,27 @@ export class GameplayState{
     }
 
     start(){
-        let gameplayUi;
         let mousePositionX;
         let mousePositionY;
+        let state = this;
 
-        let gameTree = new GameTree();
-        gameTree.init(20,20);
+        this.gameTree = new GameTree();
+        this.gameTree.init(20,20);
 
-        this.gameplayGui = new GameplayUi(this.gameplayCanva, gameTree.G[0], gameTree.G.pop);
-        gameplayUi = this.gameplayGui;
+        this.gameplayGui = new GameplayUi(this.gameplayCanva, this.gameTree.G[0], this.gameTree.G.pop);
+
         this.gameplayCanva.addEventListener('click', function(event){
-            handleClick(event, gameTree.G, gameplayUi);
+            canvaGamaplayHandleClick(event, state);
         })
 
-        this.mapUi = new GameplayMapUi(this.mapCanva, gameTree.G[0], gameTree.G.pop);
+        this.mapUi = new GameplayMapUi(this.mapCanva, this.gameTree.G[0], this.gameplayGui);
+        this.mapCanva.addEventListener('click', function(event){
+            canvaMiniMapHandleClick(event, state);
+        });
 
         setInterval(()=>{
-            this.gameplayGui.paintGameBoard(gameTree.G[0]);
-            this.mapUi.paintGameBoard(gameTree.G[0]);
+            this.gameplayGui.paintGameBoard(this.gameTree.G[0]);
+            this.mapUi.paintGameBoard(this.gameTree.G[0]);
         }, 10)
         
 
