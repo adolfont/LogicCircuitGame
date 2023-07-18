@@ -11,15 +11,22 @@
         .forCanva{
             width: 1280px;
             height: 720px;
-            flex-direction: row;
+            position: relative;
+            /*flex-direction: row;
             justify-content: space-around;
-            align-items: center;
+            align-items: center;*/
 
         }
 
-        .meuCanvas{
+        #meuCanvas{
             image-rendering: pixelated;
         }
+
+        #mapCanvas{
+            top: 0;
+            left: 0;
+            position: absolute;
+        }   
     </style>
 
     <script src='./GameOperatingClasses/States/GameplayState.js' type = 'module'></script>
