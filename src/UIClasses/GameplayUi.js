@@ -1,7 +1,7 @@
-import { canvaHeight } from "./constant.js";
-import { canvaWidth } from "./constant.js";
+import { canvaHeight } from "../GameOperatingClasses/constant.js";
+import { canvaWidth } from "../GameOperatingClasses/constant.js";
 import { handleMove } from "./haddleListener.js";
-import { ShortcutUIFunc } from "./ShortcutUIFunc.js";
+import { ShortcutUIFunc } from "./OperatingAssitentsClasses/ShortcutUIFunc.js";
 
 const SCALE = 1.5;
 
@@ -31,7 +31,7 @@ export const CLICK_AREA_H = PORT_HEIGHT;
 const ON = 1;
 const OFF = 0;
 
-export class Ui{
+export class GameplayUi{
     onLight = new Image();
     offLight = new Image();
     andModPort = [];

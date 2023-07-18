@@ -1,7 +1,7 @@
-import {AndPort} from "./AndPort.js";
-import {OrPort} from "./OrPort.js";
-import { TruePort } from "./TruePort.js";
-import {FalsePort} from "./FalsePort.js"
+import {AndPort} from "../Ports/AndPort.js";
+import {OrPort} from "../Ports/OrPort.js";
+import { TruePort } from "../Ports/TruePort.js";
+import {FalsePort} from "../Ports/FalsePort.js"
 
 export class Node{
     x = 0;

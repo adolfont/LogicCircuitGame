@@ -1,6 +1,6 @@
-import {handleClick} from "./haddleListener.js";
-import {Ui} from "./Ui.js";
-import {Game} from "./Game.js"
+import {handleClick} from "../UIClasses/haddleListener.js";
+import {GameplayUi} from "../UIClasses/GameplayUi.js";
+import {GameTree} from "./Gameplay/GameTree.js"
 
 export class Main{
     context;
@@ -20,17 +20,17 @@ export class Main{
         let mousePositionX;
         let mousePositionY;
 
-        let game = new Game();
-        game.init(20,20);
+        let gameTree = new GameTree();
+        gameTree.init(20,20);
 
-        this.gui = new Ui(this.canva, game.G[0], game.G.pop);
+        this.gui = new GameplayUi(this.canva, gameTree.G[0], gameTree.G.pop);
         ui = this.gui;
         this.canva.addEventListener('click', function(event){
-            handleClick(event, game.G, ui);
+            handleClick(event, gameTree.G, ui);
         })
 
         setInterval(()=>{
-            this.gui.paintGameBoard(game.G[0]);
+            this.gui.paintGameBoard(gameTree.G[0]);
         }, 10)
     }
 }

@@ -1,13 +1,13 @@
-import { FalsePort } from "./FalsePort.js";
+import { FalsePort } from "../Ports/FalsePort.js";
 import {Node} from "./Node.js";
-import { TruePort } from "./TruePort.js";
-import { AndPort } from "./AndPort.js"; 
-import { OrPort } from "./OrPort.js"; 
+import { TruePort } from "../Ports/TruePort.js";
+import { AndPort } from "../Ports/AndPort.js"; 
+import { OrPort } from "../Ports/OrPort.js"; 
 
 
 /*Representa o funcionamento interno do jogo,
 sem interface de usuario, somente suas estruturas de dados.*/
-export class Game{
+export class GameTree{
     G = []; //todos os nós da arvore de jogo
 
     ports = []; //todas as portas possiveis de serem

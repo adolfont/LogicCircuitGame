@@ -1,8 +1,8 @@
-import {CLICK_AREA_W} from "./Ui.js";
-import {CLICK_AREA_H} from "./Ui.js";
-import { canvaHeight } from "./constant.js";
-import { canvaWidth } from "./constant.js";
-import {Ui} from "./Ui.js";
+import {CLICK_AREA_W} from "./GameplayUi.js";
+import {CLICK_AREA_H} from "./GameplayUi.js";
+import { canvaHeight } from "../GameOperatingClasses/constant.js";
+import { canvaWidth } from "../GameOperatingClasses/constant.js";
+import {GameplayUi} from "./GameplayUi.js";
 
 export function handleClick(event, G, gui){
     let clickX = event.offsetX;
