@@ -2,8 +2,8 @@ import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
 import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
 import { canvaGamaplayHandleMove } from "./haddleListener.js";
 import { ShortcutUIFunc } from "./OperatingUIAssitentsClasses/ShortcutUIFunc.js";
-
-export const GAMEPLAY_SCALE = 1.5;
+import {GAMEPLAY_SCALE} from "./constants.js";
+import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
 
 const LIGHT_WIDTH = 29*GAMEPLAY_SCALE;
 const LIGHT_HEIGHT = 46*GAMEPLAY_SCALE;
@@ -49,7 +49,7 @@ export class GameplayUi{
     offsetX = 0;
     offsetY = 0;
     
-    currentNode; //a ultimo nó modificado pelo usuário
+    currentNode = null; //a ultimo nó modificado pelo usuário
     shortcutUI = new ShortcutUIFunc(this); //para o funcionamento interno dos
                                             //botões de atalho
 
@@ -60,6 +60,8 @@ export class GameplayUi{
     verticalNegativeMove = false;
 
     inShortcutScene = false;
+
+    focus = true;
 
     canva;
     context;
@@ -394,37 +396,41 @@ export class GameplayUi{
 
     //Calcula o offset do frame
     offSetRecalculate(){
-        if(this.inShortcutScene == false){
-            if(this.horizontalPositiveMove){
-                this.offsetX += 10;
-            }else if(this.horizontalNegativeMove){
-                this.offsetX -= 10;
-            }
-        
-            if(this.verticalPositiveMove){
-                this.offsetY += 10;
-            }else if(this.verticalNegativeMove){
-                this.offsetY -= 10;
-            }
-        }else{
-            if(GAME_CANVA_WIDTH/2 - 10 <= this.currentNode.x && GAME_CANVA_WIDTH/2 + 10 >= this.currentNode.x &&
-            GAME_CANVA_HEIGHT/2 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/2 + 10 >= this.currentNode.y){
-                this.inShortcutScene = false
-                this.horizontalPositiveMove = false;
-                this.horizontalNegativeMove = false;
-                this.verticalPositiveMove = false;
-                this.verticalNegativeMove = false ;
-            }else{
-                if(GAME_CANVA_WIDTH/2 - 10 > this.currentNode.x ){
-                    this.offsetX -= 10;
-                }else if( GAME_CANVA_WIDTH/2 + 10 < this.currentNode.x ){
+        if(this.focus){
+            if(!this.inShortcutScene){
+                if(this.horizontalPositiveMove){
                     this.offsetX += 10;
+                }else if(this.horizontalNegativeMove){
+                    this.offsetX -= 10;
                 }
-                
-                if(GAME_CANVA_HEIGHT/2 - 10 > this.currentNode.y ){
-                    this.offsetY -= 10;
-                }else if( GAME_CANVA_HEIGHT/2 + 10 < this.currentNode.y ){
+            
+                if(this.verticalPositiveMove){
                     this.offsetY += 10;
+                }else if(this.verticalNegativeMove){
+                    this.offsetY -= 10;
+                }
+            }else{
+                if(this.currentNode != null){
+                    if(GAME_CANVA_WIDTH/2 - 10 <= this.currentNode.x && GAME_CANVA_WIDTH/2 + 10 >= this.currentNode.x &&
+                    GAME_CANVA_HEIGHT/2 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/2 + 10 >= this.currentNode.y){
+                        this.inShortcutScene = false
+                        this.horizontalPositiveMove = false;
+                        this.horizontalNegativeMove = false;
+                        this.verticalPositiveMove = false;
+                        this.verticalNegativeMove = false ;
+                    }else{
+                        if(GAME_CANVA_WIDTH/2 - 10 > this.currentNode.x ){
+                            this.offsetX -= 10;
+                        }else if( GAME_CANVA_WIDTH/2 + 10 < this.currentNode.x ){
+                            this.offsetX += 10;
+                        }
+                        
+                        if(GAME_CANVA_HEIGHT/2 - 10 > this.currentNode.y ){
+                            this.offsetY -= 10;
+                        }else if( GAME_CANVA_HEIGHT/2 + 10 < this.currentNode.y ){
+                            this.offsetY += 10;
+                        }
+                    }
                 }
             }
         }
@@ -442,11 +448,23 @@ export class GameplayUi{
         return this.offsetY;
     }
     
-    setOffsetX(){
-
+    setOffsetCenter(x,y){
+        this.offsetX = (x)  - GAME_CANVA_WIDTH/2;
+        this.offsetY = (y);
     }
 
-    setOffsetY(){
+    stopCam(){
+        this.horizontalNegativeMove = false;
+        this.horizontalPositiveMove = false;
+        this.verticalNegativeMove = false;
+        this.verticalPositiveMove = false;
+    }
 
+    requestFocus(){
+        this.focus = true;
+    }
+
+    releaseFocus(){
+        this.focus = false;
     }
 }

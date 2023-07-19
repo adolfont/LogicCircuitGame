@@ -1,14 +1,12 @@
 import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
 import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
-import {GAMEPLAY_SCALE} from "./GameplayUi.js"
+import {SCALE_RELATIVE_TO_GAMEPLAY} from "./constants.js";
+import { MINIMAP_SCALE } from "./constants.js";
 
-const MINIMAP_SCALE = 0.1;
 const PORT_SCALE = 0.1;
 
-const SCALE_RELATIVE_TO_GAMEPLAY = MINIMAP_SCALE / GAMEPLAY_SCALE
-
-const OFFSET_WIDTH = GAME_CANVA_WIDTH * SCALE_RELATIVE_TO_GAMEPLAY;
-const OFFSET_HEIGTH = GAME_CANVA_HEIGHT * SCALE_RELATIVE_TO_GAMEPLAY;
+export const OFFSET_WIDTH = GAME_CANVA_WIDTH * SCALE_RELATIVE_TO_GAMEPLAY;
+export const OFFSET_HEIGTH = GAME_CANVA_HEIGHT * SCALE_RELATIVE_TO_GAMEPLAY;
 
 const LIGHT_WIDTH = 29*PORT_SCALE;
 const LIGHT_HEIGHT = 46*PORT_SCALE;
@@ -289,7 +287,6 @@ export class GameplayMapUi{
 
     paintOffsetRegion(head){
         this.context.strokeStyle = "black";
-        
         this.offsetRecalculate();
         this.context.strokeRect(this.canvaWidth/2 + this.offsetX - OFFSET_WIDTH/2, 0 + this.offsetY, OFFSET_WIDTH, OFFSET_HEIGTH);
     }   
@@ -303,7 +300,12 @@ export class GameplayMapUi{
         this.focus = true;
     }
 
-    realeseFocus(){
-        focus = false;
+    releaseFocus(){
+        this.focus = false;
+    }
+
+    setOffsetCenter(x, y){
+        this.offsetX = x + this.canvaWidth/2;
+        this.offsetY = y - OFFSET_HEIGTH/2;
     }
 }

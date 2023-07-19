@@ -4,6 +4,9 @@ import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
 import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
 import {GameplayUi} from "./GameplayUi.js";
 import { GameplayState } from "../GameOperatingClasses/States/GameplayState.js";
+import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
+import {OFFSET_WIDTH} from "./GameplayMapUI.js";
+import {OFFSET_HEIGTH} from "./GameplayMapUI.js";
 
 export function canvaGamaplayHandleClick(event, gameplayState){
     let clickX = event.offsetX;
@@ -11,7 +14,9 @@ export function canvaGamaplayHandleClick(event, gameplayState){
     let gui = gameplayState.gameplayGui
     let G = gameplayState.gameTree.G;
 
-    gameplayState.mapUi.realeseFocus();
+    gameplayState.mapUi.releaseFocus();
+    gameplayState.gameplayGui.requestFocus();
+
 
     if(clickX > gui.shortcutUI.outputButton.x && clickX < gui.shortcutUI.outputButton.x + gui.shortcutUI.outputButton.w
         && clickY > gui.shortcutUI.outputButton.y && clickY < gui.shortcutUI.outputButton.y + gui.shortcutUI.outputButton.h){
@@ -86,8 +91,19 @@ export function canvaGamaplayHandleMove(event, gui){
 
 export function canvaMiniMapHandleClick(event, state){
     if(!state.mapUi.focus){
-        requestFocus();
+        state.mapUi.requestFocus();
+        state.gameplayGui.releaseFocus();
+        state.gameplayGui.stopCam();
     }else{
-        realeaseFocus();
+        state.mapUi.releaseFocus();
     }
+}
+
+export function canvaMiniMapHandleMove(event, state){
+    if(state.mapUi.focus){
+        let x = (event.offsetX  - OFFSET_WIDTH) / SCALE_RELATIVE_TO_GAMEPLAY - GAME_CANVA_WIDTH/2;
+        let y = (event.offsetY  - OFFSET_HEIGTH/2)/ SCALE_RELATIVE_TO_GAMEPLAY;
+        state.gameplayGui.setOffsetCenter(x,y);
+    }
+
 }

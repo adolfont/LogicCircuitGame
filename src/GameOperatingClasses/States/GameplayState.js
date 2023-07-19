@@ -1,8 +1,9 @@
-import {canvaGamaplayHandleClick} from "../../UIClasses/haddleListener.js";
+import {canvaGamaplayHandleClick, canvaGamaplayHandleMove} from "../../UIClasses/haddleListener.js";
 import { canvaMiniMapHandleClick } from "../../UIClasses/haddleListener.js";
 import {GameplayUi} from "../../UIClasses/GameplayUi.js";
 import {GameTree} from "../Gameplay/GameTree.js"
 import { GameplayMapUi } from "../../UIClasses/GameplayMapUI.js";
+import { canvaMiniMapHandleMove } from "../../UIClasses/haddleListener.js";
 
 export class GameplayState{
     wiondow;
@@ -45,13 +46,14 @@ export class GameplayState{
             canvaMiniMapHandleClick(event, state);
         });
 
+        this.mapCanva.addEventListener('mousemove', (event)=>{
+            canvaMiniMapHandleMove(event, state);
+        });
+
         setInterval(()=>{
             this.gameplayGui.paintGameBoard(this.gameTree.G[0]);
             this.mapUi.paintGameBoard(this.gameTree.G[0]);
         }, 10)
-        
-
-        
 
     }
 }
