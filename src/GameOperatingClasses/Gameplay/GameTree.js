@@ -3,6 +3,7 @@ import {Node} from "./Node.js";
 import { TruePort } from "../Ports/TruePort.js";
 import { AndPort } from "../Ports/AndPort.js"; 
 import { OrPort } from "../Ports/OrPort.js"; 
+import { getRandomIntInclusive } from "../auxFuncs.js";
 
 
 /*Representa o funcionamento interno do jogo,
@@ -45,7 +46,7 @@ export class GameTree{
     enquanto maxNodes é o número máximo de nós*/
     genRandomTree(node, maxNodes){
 
-        let n = this.getRandomIntInclusive(0,5);
+        let n = getRandomIntInclusive(0,5);
         
         if(n == 1){
             if(this.G.length + 1 <= maxNodes){
@@ -113,7 +114,7 @@ export class GameTree{
 
             /*Escolhe aleatoriamente os nós modificaveis*/
             while(modCount < nMod){
-                index = this.getRandomIntInclusive(0, this.G.length - 1);
+                index = getRandomIntInclusive(0, this.G.length - 1);
 
                 if(this.G[index].mod == false){
                     this.G[index].setMod(this.ports);
@@ -151,23 +152,16 @@ export class GameTree{
         }
     }
 
-    /*Gera um numero aleatório no intervalo [min, max]*/
-    getRandomIntInclusive(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
     /*retorna uma porta aleatoria*/
     getRandomPort(){
-        let n = this.getRandomIntInclusive(0,1);
+        let n = getRandomIntInclusive(0,1);
 
         return this.ports[n];
     }
 
     /*retorna uma porta booleana aleatoria*/
     getRandomBooleanPortNode(){
-        let n = this.getRandomIntInclusive(0,1);
+        let n = getRandomIntInclusive(0,1);
 
         
 

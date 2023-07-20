@@ -11,8 +11,8 @@ export const OFFSET_HEIGTH = GAME_CANVA_HEIGHT * SCALE_RELATIVE_TO_GAMEPLAY;
 const LIGHT_WIDTH = 29*PORT_SCALE;
 const LIGHT_HEIGHT = 46*PORT_SCALE;
 
-const PORT_WIDTH = 78*PORT_SCALE;
-const PORT_HEIGHT = 35*PORT_SCALE;
+const PORT_WIDTH = 62*PORT_SCALE;
+const PORT_HEIGHT = 74*PORT_SCALE;
 
 const LEAF_WIDTH = 85*MINIMAP_SCALE;
 const LEAF_HEIGHT = 84*MINIMAP_SCALE;
@@ -76,14 +76,14 @@ export class GameplayMapUi{
         modelos diferentes daqueles que podem*/
 
         this.andModPort[OFF] = new Image();
-        this.andModPort[OFF].src = "./res/andOffPortMod.png";
+        this.andModPort[OFF].src = "./res/NEWandOffPortMod.png";
         this.andModPort[ON] = new Image();
-        this.andModPort[ON].src = "./res/andOnPortMod.png";
+        this.andModPort[ON].src = "./res/NEWandOnPortMod.png";
         
         this.orModPort[OFF] = new Image();
-        this.orModPort[OFF].src = "./res/orOffPortMod.png";
+        this.orModPort[OFF].src = "./res/NEWorOffPortMod.png";
         this.orModPort[ON] = new Image();
-        this.orModPort[ON].src = "./res/orOnPortMod.png";
+        this.orModPort[ON].src = "./res/NEWorOnPortMod.png";
         
         this.andNoModPort[OFF] = new Image();
         this.andNoModPort[OFF].src = "./res/andOffPortNoMod.png";

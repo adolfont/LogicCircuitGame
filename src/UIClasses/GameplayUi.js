@@ -4,12 +4,13 @@ import { canvaGamaplayHandleMove } from "./haddleListener.js";
 import { ShortcutUIFunc } from "./OperatingUIAssitentsClasses/ShortcutUIFunc.js";
 import {GAMEPLAY_SCALE} from "./constants.js";
 import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
+import {DecorGraphics} from "./DecorGraphics.js";
 
 const LIGHT_WIDTH = 29*GAMEPLAY_SCALE;
 const LIGHT_HEIGHT = 46*GAMEPLAY_SCALE;
 
-const PORT_WIDTH = 78*GAMEPLAY_SCALE;
-const PORT_HEIGHT = 35*GAMEPLAY_SCALE;
+const PORT_WIDTH = 62*GAMEPLAY_SCALE;
+const PORT_HEIGHT = 74*GAMEPLAY_SCALE;
 
 const LEAF_WIDTH = 85*GAMEPLAY_SCALE;
 const LEAF_HEIGHT = 84*GAMEPLAY_SCALE;
@@ -43,8 +44,8 @@ export class GameplayUi{
     rightTube = [];
     horizontalTube = [];
     verticalTube = [];
+    decorGraphics =  new DecorGraphics(this);
     shortcutImage = new Image();
-    floor = new Image()
 
     offsetX = 0;
     offsetY = 0;
@@ -78,7 +79,6 @@ export class GameplayUi{
 
         this.onLight.src = "./res/onLamp.png";
         this.offLight.src = "./res/offLamp.png";
-        this.floor.src = "./res/floor.png";
 
         /*Cada modelo de porta tem sua respectiva
         representação para ligado e desligado
@@ -89,14 +89,14 @@ export class GameplayUi{
         this.shortcutImage.src = "./res/shortcut.png";
 
         this.andModPort[OFF] = new Image();
-        this.andModPort[OFF].src = "./res/andOffPortMod.png";
+        this.andModPort[OFF].src = "./res/NEWandOffPortMod.png";
         this.andModPort[ON] = new Image();
-        this.andModPort[ON].src = "./res/andOnPortMod.png";
+        this.andModPort[ON].src = "./res/NEWandOnPortMod.png";
         
         this.orModPort[OFF] = new Image();
-        this.orModPort[OFF].src = "./res/orOffPortMod.png";
+        this.orModPort[OFF].src = "./res/NEWorOffPortMod.png";
         this.orModPort[ON] = new Image();
-        this.orModPort[ON].src = "./res/orOnPortMod.png";
+        this.orModPort[ON].src = "./res/NEWorOnPortMod.png";
         
         this.andNoModPort[OFF] = new Image();
         this.andNoModPort[OFF].src = "./res/andOffPortNoMod.png";
@@ -155,8 +155,10 @@ export class GameplayUi{
         }
 
         this.context.clearRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
-        //this.context.drawImage(this.floor, 0, 0, FLOOR_WIDTH*GAMEPLAY_SCALE, FLOOR_HEIGHT*GAMEPLAY_SCALE);
-
+        this.context.fillStyle = "#A6B04F";
+        this.context.fillRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
+        
+        this.decorGraphics.draw();
         this.paintLine(x, y + EDGE, GAME_CANVA_WIDTH/2, y + EDGE);
         this.context.drawImage(light, x - LIGHT_WIDTH/ 2  - this.offsetX, y - this.offsetY , LIGHT_WIDTH, LIGHT_HEIGHT);
 
@@ -199,11 +201,11 @@ export class GameplayUi{
 
     //desenha o tubo direito à porta
     paintRightTube(head){
-        let x = head.x + PORT_WIDTH/2 ;
-        let y = head.y + PORT_HEIGHT/2 - 5 ;
+        let x = head.x + PORT_WIDTH/2 - 8 * GAMEPLAY_SCALE;
+        let y = head.y + PORT_HEIGHT/2 - 20;
 
         let w = head.Rinput.x - x;
-        let h = head.Rinput.y - y - PORT_HEIGHT/2;
+        let h = head.Rinput.y - y - PORT_HEIGHT/4;
 
 
         if(head.Rinput.port.id!="TRUE" && head.Rinput.port.id!="FALSE"){
@@ -226,11 +228,11 @@ export class GameplayUi{
     //desenha o tubo esquerto à porta
     paintLeftTube(head){
         
-        let x = head.x  - PORT_WIDTH /2 ;
-        let y = head.y + TUBE_HEIGHT/2 ;
+        let x = head.x  - PORT_WIDTH /2 + 6 * GAMEPLAY_SCALE;
+        let y = head.y + TUBE_HEIGHT/2 + 20;
 
         let w = x - head.Linput.x;
-        let h = head.Linput.y - y - PORT_HEIGHT/2;
+        let h = head.Linput.y - y - PORT_HEIGHT/4;
         
         if(head.Linput.port.id!="TRUE" && head.Linput.port.id!="FALSE"){
             
@@ -325,6 +327,7 @@ export class GameplayUi{
     paintShortcut(node){
         let angle;
 
+
         if(node.output != null){
             //calcula o angulo para rotacionar shortcutImage
             angle = this.angleCalculate(node, node.output);
@@ -348,7 +351,7 @@ export class GameplayUi{
                 this.context.rotate(-angle*(Math.PI/180));
                 this.context.translate((node.x  - PORT_WIDTH)*(-1), (node.y + PORT_HEIGHT)*(-1));
 
-                this.shortcutUI.setLinputButtonPosition(node.x  - PORT_WIDTH + 5, node.y + 10,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT + 10);
+                this.shortcutUI.setLinputButtonPosition(node.x  - PORT_WIDTH + 5, node.y + PORT_HEIGHT/1.5,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT + 10);
             }
         }
 
@@ -363,9 +366,10 @@ export class GameplayUi{
                 this.context.rotate(-angle*(Math.PI/180));
                 this.context.translate((node.x  + PORT_WIDTH)*(-1), (node.y + PORT_HEIGHT)*(-1));
 
-                this.shortcutUI.setRinputButtonPosition(node.x  + PORT_WIDTH/2 + 20, node.y,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT + 10);
+                this.shortcutUI.setRinputButtonPosition(node.x  + PORT_WIDTH/1.5, node.y + PORT_HEIGHT/2,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT + 10);
             }
         }
+        //this.context.strokeRect(this.shortcutUI.RinputButton.x,this.shortcutUI.RinputButton.y,this.shortcutUI.RinputButton.w,this.shortcutUI.RinputButton.h);
     }
 
     /*Calculo o angulo produzito por
