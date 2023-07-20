@@ -285,25 +285,35 @@ export class GameplayMapUi{
         }
     }
 
+    /*Desenha no mapa um retangulo
+    que delimita o que está sendo mostrado
+    na tela de gameplay*/
     paintOffsetRegion(head){
         this.context.strokeStyle = "black";
         this.offsetRecalculate();
         this.context.strokeRect(this.canvaWidth/2 + this.offsetX - OFFSET_WIDTH/2, 0 + this.offsetY, OFFSET_WIDTH, OFFSET_HEIGTH);
     }   
     
+    /*Atualiza os valores de offset
+    de acordo com os do canva de gameplay*/
     offsetRecalculate(){
         this.offsetX = this.mapedScenery.getOffsetX() * SCALE_RELATIVE_TO_GAMEPLAY;
         this.offsetY = this.mapedScenery.getOffsetY() * SCALE_RELATIVE_TO_GAMEPLAY;
     }
 
+    /*Recupera o foco no canva do
+    minimapa*/
     requestFocus(){
         this.focus = true;
     }
 
+    /*libera o foco do canva do
+    minimapa*/
     releaseFocus(){
         this.focus = false;
     }
 
+    /*Define o centro dos limites do offset*/
     setOffsetCenter(x, y){
         this.offsetX = x + this.canvaWidth/2;
         this.offsetY = y - OFFSET_HEIGTH/2;

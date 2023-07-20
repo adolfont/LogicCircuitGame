@@ -436,23 +436,29 @@ export class GameplayUi{
         }
     }
 
+    /*Define o nó acessador mais recentemente*/
     setCurrentNode(node){
         this.currentNode = node;
     }
 
+    /*Retorna o offset horizontal*/
     getOffsetX(){
         return this.offsetX;
     }
 
+    /*Retornao offset vertical*/
     getOffsetY(){
         return this.offsetY;
     }
     
+    /*Define o centro do offset*/
     setOffsetCenter(x,y){
         this.offsetX = (x)  - GAME_CANVA_WIDTH/2;
         this.offsetY = (y);
     }
 
+    /*Define todos os atributos de movimetação como
+    false*/
     stopCam(){
         this.horizontalNegativeMove = false;
         this.horizontalPositiveMove = false;
@@ -460,10 +466,12 @@ export class GameplayUi{
         this.verticalPositiveMove = false;
     }
 
+    /*Recupera o foco da UI*/
     requestFocus(){
         this.focus = true;
     }
 
+    /*Libera o foco da UI*/
     releaseFocus(){
         this.focus = false;
     }
