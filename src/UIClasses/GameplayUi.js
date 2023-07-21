@@ -326,50 +326,52 @@ export class GameplayUi{
     botões*/
     paintShortcut(node){
         let angle;
+        this.context.translate(node.x - SHORTCUT_WIDTH/2, node.y + PORT_HEIGHT);
 
 
         if(node.output != null){
-            //calcula o angulo para rotacionar shortcutImage
-            angle = this.angleCalculate(node, node.output);
+            this.context.drawImage(this.shortcutImage, 0, 0, SHORTCUT_HEIGHT, SHORTCUT_HEIGHT);
 
-            this.context.translate(node.x, node.y);
-            this.context.drawImage(this.shortcutImage, 0 - SHORTCUT_HEIGHT, 0 - SHORTCUT_HEIGHT - 10, SHORTCUT_HEIGHT, SHORTCUT_HEIGHT);
-            this.context.translate((node.x)*(-1), (node.y)*(-1));
-
-            this.shortcutUI.setOutputButtonPosition(node.x  - SHORTCUT_HEIGHT , node.y - SHORTCUT_HEIGHT, SHORTCUT_WIDTH, SHORTCUT_HEIGHT + 10);
+            this.shortcutUI.setOutputButtonPosition(node.x - SHORTCUT_WIDTH/2, node.y + PORT_HEIGHT,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT);
+        }else{
+            this.shortcutUI.setOutputButtonPosition(-100,-100,  0, 0);
         }
 
-        if(node.Linput!=null){
-            if(node.Linput.port.id!="TRUE" && node.Linput.port.id!="FALSE"){
+        if(node.Linput!=null && node.Linput.port.id!="TRUE" && node.Linput.port.id!="FALSE"){
+           
                 
-                //calcula o angulo para rotacionar shortcutImage
-                angle = this.angleCalculate(node, node.Linput);
-
-                this.context.translate(node.x - PORT_WIDTH, node.y + PORT_HEIGHT);
-                this.context.rotate(angle*(Math.PI/180));
-                this.context.drawImage(this.shortcutImage, 0-SHORTCUT_WIDTH/2, 0, SHORTCUT_WIDTH, SHORTCUT_HEIGHT);
-                this.context.rotate(-angle*(Math.PI/180));
-                this.context.translate((node.x  - PORT_WIDTH)*(-1), (node.y + PORT_HEIGHT)*(-1));
-
-                this.shortcutUI.setLinputButtonPosition(node.x  - PORT_WIDTH + 5, node.y + PORT_HEIGHT/1.5,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT + 10);
-            }
-        }
-
-        if(node.Rinput!=null){
-            if(node.Rinput.port.id!="TRUE" && node.Rinput.port.id!="FALSE"){
+            this.context.translate(- EDGE, 0);
                 
-                angle = this.angleCalculate(node, node.Rinput);
+            this.context.rotate(-Math.PI/2);
+            this.context.drawImage(this.shortcutImage, 0 - SHORTCUT_WIDTH, 0 + SHORTCUT_HEIGHT, SHORTCUT_WIDTH, SHORTCUT_HEIGHT);
+            this.context.rotate(+Math.PI/2);
 
-                this.context.translate(node.x + PORT_WIDTH, node.y + PORT_HEIGHT);
-                this.context.rotate(angle*(Math.PI/180));
-                this.context.drawImage(this.shortcutImage, 0-SHORTCUT_WIDTH/2, 0, -SHORTCUT_WIDTH, SHORTCUT_HEIGHT);
-                this.context.rotate(-angle*(Math.PI/180));
-                this.context.translate((node.x  + PORT_WIDTH)*(-1), (node.y + PORT_HEIGHT)*(-1));
+            this.context.translate(+ EDGE, 0);
 
-                this.shortcutUI.setRinputButtonPosition(node.x  + PORT_WIDTH/1.5, node.y + PORT_HEIGHT/2,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT + 10);
-            }
+            this.shortcutUI.setLinputButtonPosition(node.x + SHORTCUT_WIDTH - EDGE, node.y + PORT_HEIGHT,  SHORTCUT_WIDTH, SHORTCUT_HEIGHT);
+            
+        }else{
+            this.shortcutUI.setLinputButtonPosition(-100,-100,  0, 0);
         }
-        //this.context.strokeRect(this.shortcutUI.RinputButton.x,this.shortcutUI.RinputButton.y,this.shortcutUI.RinputButton.w,this.shortcutUI.RinputButton.h);
+
+        if(node.Rinput!=null && node.Rinput.port.id!="TRUE" && node.Rinput.port.id!="FALSE"){
+            
+                
+            this.context.translate(+ EDGE, 0);
+
+            this.context.rotate(+Math.PI/2);
+            this.context.drawImage(this.shortcutImage, 0, 0, SHORTCUT_HEIGHT, SHORTCUT_HEIGHT);
+            this.context.rotate(-Math.PI/2);
+
+            this.context.translate(- EDGE, 0);
+
+            this.shortcutUI.setRinputButtonPosition(node.x - SHORTCUT_WIDTH*2 + EDGE, node.y + PORT_HEIGHT, SHORTCUT_WIDTH, SHORTCUT_HEIGHT);
+            
+        }else{
+            this.shortcutUI.setRinputButtonPosition(-100,-100,  0, 0);
+        }
+
+        this.context.translate((node.x - SHORTCUT_WIDTH/2)*(-1), (node.y + PORT_HEIGHT)*(-1));
     }
 
     /*Calculo o angulo produzito por
