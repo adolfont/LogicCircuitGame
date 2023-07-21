@@ -5,6 +5,9 @@ import { AndPort } from "../Ports/AndPort.js";
 import { OrPort } from "../Ports/OrPort.js"; 
 import { getRandomIntInclusive } from "../auxFuncs.js";
 
+const AND = 1;
+const OR = 0;
+
 
 /*Representa o funcionamento interno do jogo,
 sem interface de usuario, somente suas estruturas de dados.*/
@@ -24,8 +27,6 @@ export class GameTree{
 
         this.TruePortNode.port = new TruePort();
         this.FalsePortNode.port = new FalsePort()
-
-        this.G[0] = new Node();
     }
 
     /*nNode é o numero total de nós que a arvore
@@ -34,12 +35,66 @@ export class GameTree{
 
     obs.: nós folas não inclusos*/
     init(nNode, nMod){
+        this.G[0] = new Node();
         while(this.G.length<nNode){
             this.genRandomTree(this.G[this.G.length-1], nNode)
-            console.log(this.G.length);
         }
         this.initTree(nNode, nMod);
     }
+    
+    init(stringJson){
+        let jsonNodes = JSON.parse(stringJson);
+        
+        this.G[0] = new Node();
+
+        this.initTreeJSON(0, this.G[0], jsonNodes);
+        console.log(this.G[0]);
+    }
+
+    initTreeJSON(i, node,jsonNodes){
+
+        if(jsonNodes[i].id == "AND"){
+            node.port = this.ports[AND];
+        }else if(jsonNodes[i].id == "OR"){
+            node.port = this.ports[AND];
+        }
+
+        if(jsonNodes[i].mod){
+            node.mod = true;
+            node.vet = this.ports;
+        }
+
+        if(jsonNodes[i].L!=null){
+            if(jsonNodes[jsonNodes[i].L].id == "TRUE"){
+                node.Linput = this.TruePortNode;
+            }else if(jsonNodes[jsonNodes[i].L].id == "FALSE"){
+                node.Linput = this.FalsePortNode;
+            }else{
+                node.Linput = new Node()
+                node.Linput.output = node;
+                this.G.push(node.Linput);
+                this.initTreeJSON(jsonNodes[i].L, node.Linput, jsonNodes); 
+            }
+        }
+
+        if(jsonNodes[i].R!=null){
+            if(jsonNodes[jsonNodes[i].R].id == "TRUE"){
+                node.Rinput = this.TruePortNode;
+            }else if(jsonNodes[jsonNodes[i].R].id == "FALSE"){
+                node.Rinput = this.FalsePortNode;
+            }else{
+                node.Rinput = new Node()
+                node.Rinput.output = node;
+                this.G.push(node.Rinput);
+                this.initTreeJSON(jsonNodes[i].R, node.Rinput, jsonNodes);
+            }
+        }
+
+        if(node.Rinput != null && node.Linput != null){
+            node.bifurcation = node.Rinput.bifurcation + node.Linput.bifurcation + 1;
+        }
+    }
+
 
     /*Método que percorre toda a arvore
     criando novos nós. i é o contador de nós criados,
