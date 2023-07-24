@@ -32,8 +32,10 @@ export class GameplayState{
         let mousePositionY;
         let state = this;
 
+        let jsonString = '[{    "id":"AND",    "mod":true,    "L":1,    "R":2    },    {        "id":"OR",        "mod":false,        "L":3,        "R":4            },                    {            "id":"AND",            "mod":false,            "L":5,            "R":6             },    {        "id":"TRUE",        "mod":false,        "L": null,        "R": null    },        {        "id":"FALSE",        "mod":false,        "L": null,        "R": null    },    {        "id":"TRUE",        "mod":false,        "L": null,        "R": null    },    {        "id":"TRUE",        "mod":false,        "L": null,        "R": null    }]';
+
         this.gameTree = new GameTree();
-        this.gameTree.init(20,20);
+        this.gameTree.init(jsonString);
 
         this.gameplayGui = new GameplayUi(this.gameplayCanva, this.gameTree.G[0], this.gameTree.G.pop);
 

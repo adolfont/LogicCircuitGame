@@ -1,0 +1,53 @@
+[{
+    "id":"AND",
+    "mod":true,
+    "L":1,
+    "R":2
+    },
+
+    {
+        "id":"OR",
+        "mod":false,
+        "L":3,
+        "R":4
+        
+    },
+        
+        
+    {
+            "id":"AND",
+            "mod":false,
+            "L":5,
+            "R":6
+         
+    },
+
+    {
+        "id":"TRUE",
+        "mod":false,
+        "L": null,
+        "R": null
+    },
+    
+    {
+        "id":"FALSE",
+        "mod":false,
+        "L": null,
+        "R": null
+    },
+
+    {
+        "id":"TRUE",
+        "mod":false,
+        "L": null,
+        "R": null
+    },
+
+    {
+        "id":"TRUE",
+        "mod":false,
+        "L": null,
+        "R": null
+    }
+
+]
