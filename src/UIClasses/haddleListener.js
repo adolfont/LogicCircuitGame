@@ -17,7 +17,7 @@ export function canvaGamaplayHandleClick(event, gameplayState){
     gameplayState.mapUi.releaseFocus();
     gameplayState.gameplayGui.requestFocus();
 
-
+    /*Se a posição do mouse está dento dos limites dos botões de atalho*/
     if(clickX > gui.shortcutUI.outputButton.x && clickX < gui.shortcutUI.outputButton.x + gui.shortcutUI.outputButton.w
         && clickY > gui.shortcutUI.outputButton.y && clickY < gui.shortcutUI.outputButton.y + gui.shortcutUI.outputButton.h){
             
@@ -42,7 +42,7 @@ export function canvaGamaplayHandleClick(event, gameplayState){
     }
     
     for(let i = 0 ; i < G.length ; i++){
-
+        /*Se a posição do mouse está dentro dos limites de uma porta*/
         if(clickX > G[i].x - CLICK_AREA_W/2 && clickX < G[i].x + CLICK_AREA_W/2
             && clickY > G[i].y && clickY < G[i].y + CLICK_AREA_H){
 
@@ -62,7 +62,8 @@ export function canvaGamaplayHandleMove(event, gui){
     let mousePositionX =  event.offsetX;
     let mousePositionY = event.offsetY;
 
-    if(gui.inShotcutScene != true){
+
+    if(gui.inCutScene != true){
         if(mousePositionX >= GAME_CANVA_WIDTH*0.8){
             gui.horizontalPositiveMove= true;
         }else{

@@ -65,9 +65,9 @@ export class GameplayMapUi{
 
         this.mapedScenery = mapedScenery;
 
-        this.onLight.src = "./res/onLamp.png";
-        this.offLight.src = "./res/offLamp.png";
-        this.floor.src = "./res/floor.png";
+        this.onLight.src = "./res/genSprites/onLamp.png";
+        this.offLight.src = "./res/genSprites/offLamp.png";
+        this.floor.src = "./res/genSprites/floor.png";
 
         /*Cada modelo de porta tem sua respectiva
         representação para ligado e desligado
@@ -76,49 +76,49 @@ export class GameplayMapUi{
         modelos diferentes daqueles que podem*/
 
         this.andModPort[OFF] = new Image();
-        this.andModPort[OFF].src = "./res/andOffPortMod.png";
+        this.andModPort[OFF].src = "./res/genSprites/andOffPortMod.png";
         this.andModPort[ON] = new Image();
-        this.andModPort[ON].src = "./res/andOnPortMod.png";
+        this.andModPort[ON].src = "./res/genSprites/andOnPortMod.png";
         
         this.orModPort[OFF] = new Image();
-        this.orModPort[OFF].src = "./res/orOffPortMod.png";
+        this.orModPort[OFF].src = "./res/genSprites/orOffPortMod.png";
         this.orModPort[ON] = new Image();
-        this.orModPort[ON].src = "./res/orOnPortMod.png";
+        this.orModPort[ON].src = "./res/genSprites/orOnPortMod.png";
         
         this.andNoModPort[OFF] = new Image();
-        this.andNoModPort[OFF].src = "./res/andOffPortNoMod.png";
+        this.andNoModPort[OFF].src = "./res/genSprites/andOffPortNoMod.png";
         this.andNoModPort[ON] = new Image();
-        this.andNoModPort[ON].src = "./res/andOnPortNoMod.png";
+        this.andNoModPort[ON].src = "./res/genSprites/andOnPortNoMod.png";
 
         this.orNoModPort[OFF] = new Image();
-        this.orNoModPort[OFF].src = "./res/orOffPortNoMod.png";
+        this.orNoModPort[OFF].src = "./res/genSprites/orOffPortNoMod.png";
         this.orNoModPort[ON] = new Image();
-        this.orNoModPort[ON].src = "./res/orOnPortNoMod.png";
+        this.orNoModPort[ON].src = "./res/genSprites/orOnPortNoMod.png";
 
         this.energyFont[OFF] = new Image();
-        this.energyFont[OFF].src = "./res/energyOffSource.png";
+        this.energyFont[OFF].src = "./res/genSprites/energyOffSource.png";
         this.energyFont[ON] = new Image();
-        this.energyFont[ON].src = "./res/energyONSource.png";
+        this.energyFont[ON].src = "./res/genSprites/energyONSource.png";
 
         this.rightTube[OFF] = new Image();
-        this.rightTube[OFF].src = "./res/offRightTube.png"
+        this.rightTube[OFF].src = "./res/genSprites/offRightTube.png"
         this.rightTube[ON] = new Image();
-        this.rightTube[ON].src = "./res/onRightTube.png"
+        this.rightTube[ON].src = "./res/genSprites/onRightTube.png"
 
         this.leftTube[OFF] = new Image();
-        this.leftTube[OFF].src = "./res/offLeftTube.png"
+        this.leftTube[OFF].src = "./res/genSprites/offLeftTube.png"
         this.leftTube[ON] = new Image();
-        this.leftTube[ON].src = "./res/onLeftTube.png"
+        this.leftTube[ON].src = "./res/genSprites/onLeftTube.png"
 
         this.horizontalTube[OFF] = new Image();
-        this.horizontalTube[OFF].src = "./res/offMidTubeH.png";
+        this.horizontalTube[OFF].src = "./res/genSprites/offMidTubeH.png";
         this.horizontalTube[ON] = new Image();
-        this.horizontalTube[ON].src = "./res/onMidTubeH.png"
+        this.horizontalTube[ON].src = "./res/genSprites/onMidTubeH.png"
 
         this.verticalTube[OFF] = new Image();
-        this.verticalTube[OFF].src = "./res/offMidTubeV.png"
+        this.verticalTube[OFF].src = "./res/genSprites/offMidTubeV.png"
         this.verticalTube[ON] = new Image();
-        this.verticalTube[ON].src = "./res/onMidTubeV.png"
+        this.verticalTube[ON].src = "./res/genSprites/onMidTubeV.png"
 
         this.verticalTube[ON].onload = ()=>{
             this.paintGameBoard(head);

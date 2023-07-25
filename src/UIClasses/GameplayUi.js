@@ -5,6 +5,7 @@ import { ShortcutUIFunc } from "./OperatingUIAssitentsClasses/ShortcutUIFunc.js"
 import {GAMEPLAY_SCALE} from "./constants.js";
 import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
 import {DecorGraphics} from "./DecorGraphics.js";
+import { TextBox } from "./TextBox.js";
 
 const LIGHT_WIDTH = 29*GAMEPLAY_SCALE;
 const LIGHT_HEIGHT = 46*GAMEPLAY_SCALE;
@@ -33,6 +34,8 @@ const ON = 1;
 const OFF = 0;
 
 export class GameplayUi{
+    textBox = new TextBox()
+
     onLight = new Image();
     offLight = new Image();
     andModPort = [];
@@ -60,15 +63,18 @@ export class GameplayUi{
     verticalPositiveMove = false;
     verticalNegativeMove = false;
 
-    inShortcutScene = false;
+    inCutScene = false;
 
     focus = true;
 
     canva;
     context;
 
+    treeHead;
+    level;
 
-    constructor(canva, head, currentNode){
+
+    constructor(canva, head, level){
         this.canva = canva;
         this.context = canva.getContext('2d');
 
@@ -77,8 +83,8 @@ export class GameplayUi{
         });
 
 
-        this.onLight.src = "./res/onLamp.png";
-        this.offLight.src = "./res/offLamp.png";
+        this.onLight.src = "./res/genSprites/onLamp.png";
+        this.offLight.src = "./res/genSprites/offLamp.png";
 
         /*Cada modelo de porta tem sua respectiva
         representação para ligado e desligado
@@ -86,56 +92,81 @@ export class GameplayUi{
         Portas que não podem ser modificadas também
         modelos diferentes daqueles que podem*/
 
-        this.shortcutImage.src = "./res/shortcut.png";
+        this.shortcutImage.src = "./res/genSprites/shortcut.png";
 
         this.andModPort[OFF] = new Image();
-        this.andModPort[OFF].src = "./res/andOffPortMod.png";
+        this.andModPort[OFF].src = "./res/genSprites/andOffPortMod.png";
         this.andModPort[ON] = new Image();
-        this.andModPort[ON].src = "./res/andOnPortMod.png";
+        this.andModPort[ON].src = "./res/genSprites/andOnPortMod.png";
         
         this.orModPort[OFF] = new Image();
-        this.orModPort[OFF].src = "./res/orOffPortMod.png";
+        this.orModPort[OFF].src = "./res/genSprites/orOffPortMod.png";
         this.orModPort[ON] = new Image();
-        this.orModPort[ON].src = "./res/orOnPortMod.png";
+        this.orModPort[ON].src = "./res/genSprites/orOnPortMod.png";
         
         this.andNoModPort[OFF] = new Image();
-        this.andNoModPort[OFF].src = "./res/andOffPortNoMod.png";
+        this.andNoModPort[OFF].src = "./res/genSprites/andOffPortNoMod.png";
         this.andNoModPort[ON] = new Image();
-        this.andNoModPort[ON].src = "./res/andOnPortNoMod.png";
+        this.andNoModPort[ON].src = "./res/genSprites/andOnPortNoMod.png";
 
         this.orNoModPort[OFF] = new Image();
-        this.orNoModPort[OFF].src = "./res/orOffPortNoMod.png";
+        this.orNoModPort[OFF].src = "./res/genSprites/orOffPortNoMod.png";
         this.orNoModPort[ON] = new Image();
-        this.orNoModPort[ON].src = "./res/orOnPortNoMod.png";
+        this.orNoModPort[ON].src = "./res/genSprites/orOnPortNoMod.png";
 
         this.energyFont[OFF] = new Image();
-        this.energyFont[OFF].src = "./res/energyOffSource.png";
+        this.energyFont[OFF].src = "./res/genSprites/energyOffSource.png";
         this.energyFont[ON] = new Image();
-        this.energyFont[ON].src = "./res/energyONSource.png";
+        this.energyFont[ON].src = "./res/genSprites/energyONSource.png";
 
         this.rightTube[OFF] = new Image();
-        this.rightTube[OFF].src = "./res/offRightTube.png"
+        this.rightTube[OFF].src = "./res/genSprites/offRightTube.png"
         this.rightTube[ON] = new Image();
-        this.rightTube[ON].src = "./res/onRightTube.png"
+        this.rightTube[ON].src = "./res/genSprites/onRightTube.png"
 
         this.leftTube[OFF] = new Image();
-        this.leftTube[OFF].src = "./res/offLeftTube.png"
+        this.leftTube[OFF].src = "./res/genSprites/offLeftTube.png"
         this.leftTube[ON] = new Image();
-        this.leftTube[ON].src = "./res/onLeftTube.png"
+        this.leftTube[ON].src = "./res/genSprites/onLeftTube.png"
 
         this.horizontalTube[OFF] = new Image();
-        this.horizontalTube[OFF].src = "./res/offMidTubeH.png";
+        this.horizontalTube[OFF].src = "./res/genSprites/offMidTubeH.png";
         this.horizontalTube[ON] = new Image();
-        this.horizontalTube[ON].src = "./res/onMidTubeH.png"
+        this.horizontalTube[ON].src = "./res/genSprites/onMidTubeH.png"
 
         this.verticalTube[OFF] = new Image();
-        this.verticalTube[OFF].src = "./res/offMidTubeV.png"
+        this.verticalTube[OFF].src = "./res/genSprites/offMidTubeV.png"
         this.verticalTube[ON] = new Image();
-        this.verticalTube[ON].src = "./res/onMidTubeV.png"
+        this.verticalTube[ON].src = "./res/genSprites/onMidTubeV.png"
 
         this.verticalTube[ON].onload = ()=>{
             this.paintGameBoard(head);
         }
+
+        this.treeHead = head;
+        this.level =  level;
+        this.level.setUI(this);
+    }
+
+    /*Desenha o nivel do jogo*/
+    paint(){
+        this.paintGameBoard(this.treeHead);
+
+        if(this.level.inEvent()){
+            this.paintLevelEvent();
+        }else{
+            this.textBox.setUnvisble();
+        }
+    }
+
+    /*Executa do evento do level*/
+    paintLevelEvent(){
+        this.level.executeEvent();
+
+        if(!this.textBox.getVisible()){
+            this.textBox.setVisible();
+        }
+        this.textBox.setText(this.level.getEventString());
     }
 
     //redesenha toda a tela da gameplay
@@ -397,13 +428,13 @@ export class GameplayUi{
     }
 
     executeShortcut(){
-        this.inShortcutScene = true;
+        this.inCutScene = true;
     }
 
     //Calcula o offset do frame
     offSetRecalculate(){
         if(this.focus){
-            if(!this.inShortcutScene){
+            if(!this.inCutScene){
                 if(this.horizontalPositiveMove){
                     this.offsetX += 10;
                 }else if(this.horizontalNegativeMove){
@@ -419,7 +450,7 @@ export class GameplayUi{
                 if(this.currentNode != null){
                     if(GAME_CANVA_WIDTH/2 - 10 <= this.currentNode.x && GAME_CANVA_WIDTH/2 + 10 >= this.currentNode.x &&
                     GAME_CANVA_HEIGHT/2 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/2 + 10 >= this.currentNode.y){
-                        this.inShortcutScene = false
+                        this.inCutScene = false
                         this.horizontalPositiveMove = false;
                         this.horizontalNegativeMove = false;
                         this.verticalPositiveMove = false;
