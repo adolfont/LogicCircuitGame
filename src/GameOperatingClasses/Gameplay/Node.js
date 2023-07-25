@@ -17,6 +17,8 @@ export class Node{
         port pode assumir*/
     portIndex = 0; //define o elemento em vet
 
+    script = null;
+
     bifurcation = 0;    /*O peso que mede a quantide de nós
         em que seus filhos não são folhas,
         é utilizado para definir o espaçamento 
@@ -47,8 +49,15 @@ export class Node{
         }else{
             this.portIndex = 0;
         }
-
         
         this.port = this.vet[this.portIndex];
+
+        if(this.script !=null){
+            this.script(this);
+        }
+    }
+
+    addOutputListener(script){
+        this.script = script;
     }
 }
