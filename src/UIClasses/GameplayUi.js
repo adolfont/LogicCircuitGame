@@ -6,6 +6,8 @@ import {GAMEPLAY_SCALE} from "./constants.js";
 import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
 import {DecorGraphics} from "./DecorGraphics.js";
 import { TextBox } from "./TextBox.js";
+import { TrasitionScreen } from "./TrasitionScreen.js";
+import { canvaGamaplayHandleClick } from "./haddleListener.js";
 
 const LIGHT_WIDTH = 29*GAMEPLAY_SCALE;
 const LIGHT_HEIGHT = 46*GAMEPLAY_SCALE;
@@ -32,9 +34,12 @@ export const CLICK_AREA_H = PORT_HEIGHT;
 
 const ON = 1;
 const OFF = 0;
+const UP = 1;
+const DOWN = 0
 
 export class GameplayUi{
     textBox = new TextBox()
+    transitionScreen;
 
     onLight = new Image();
     offLight = new Image();
@@ -64,6 +69,8 @@ export class GameplayUi{
     verticalNegativeMove = false;
 
     inCutScene = false;
+    inTransition = true;
+    transition = DOWN;
 
     focus = true;
 
@@ -77,6 +84,10 @@ export class GameplayUi{
     constructor(canva, head, level){
         this.canva = canva;
         this.context = canva.getContext('2d');
+        this.transitionScreen = new TrasitionScreen(this.context);
+        this.treeHead = head;
+        this.level =  level;
+        this.level.setUI(this);
 
         this.canva.addEventListener('mousemove', (event)=>{
             canvaGamaplayHandleMove(event, this);
@@ -140,16 +151,13 @@ export class GameplayUi{
         this.verticalTube[ON].src = "./res/genSprites/onMidTubeV.png"
 
         this.verticalTube[ON].onload = ()=>{
-            this.paintGameBoard(head);
+            this.paint();
         }
-
-        this.treeHead = head;
-        this.level =  level;
-        this.level.setUI(this);
     }
 
     /*Desenha o nivel do jogo*/
     paint(){
+        this.context.clearRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
         this.paintGameBoard(this.treeHead);
 
         if(this.level.inEvent()){
@@ -157,6 +165,28 @@ export class GameplayUi{
         }else{
             this.textBox.setUnvisble();
         }
+
+        if(this.inTransition){
+            
+            if(this.transition == UP){
+                this.transitionScreen.upOpacity();
+                if(this.transitionScreen.opacity >= 1){
+                    this.setTreeHead(this.level.gameTree.G[0]);
+                    this.transition = DOWN;
+                }
+            }else if(this.transition == DOWN){
+                console.log(this.transitionScreen.opacity, this.transition);
+                this.transitionScreen.downOpacity();
+                if(this.transitionScreen.opacity <= 0){
+                    if(this.level.gameTree.G[0]==this.treeHead){
+                        this.inTransition = false;
+                    }
+                    this.transition = UP;
+                }
+            }
+            this.transitionScreen.paint();
+        }
+
     }
 
     /*Executa do evento do level*/
@@ -184,8 +214,6 @@ export class GameplayUi{
         else{
             light = this.offLight;
         }
-
-        this.context.clearRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
         this.context.fillStyle = "#A6B04F";
         this.context.fillRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
         
@@ -512,4 +540,26 @@ export class GameplayUi{
     releaseFocus(){
         this.focus = false;
     }
+
+    setLevel(level){
+        this.level = level;
+        this.level.setUI(this);
+    }
+    
+    replaceLevel(level){
+        this.inTrasition = true;
+        this.setLevel(level);
+        this.canva.addEventListener('click', function(event){
+            canvaGamaplayHandleClick(event, level);
+        });
+    }
+
+    setTreeHead(head){
+        this.treeHead = head;
+    }
+
+    executeTransition(){
+        this.inTransition = true;
+    }
+
 }

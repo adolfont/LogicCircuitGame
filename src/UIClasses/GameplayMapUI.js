@@ -58,6 +58,7 @@ export class GameplayMapUi{
     canva;
     context;
 
+    treeHead;
 
     constructor(canva, head, mapedScenery){
         this.canva = canva;
@@ -123,6 +124,12 @@ export class GameplayMapUi{
         this.verticalTube[ON].onload = ()=>{
             this.paintGameBoard(head);
         }
+
+        this.treeHead = head;
+    }
+
+    paint(){
+        this.paintGameBoard(this.treeHead);
     }
 
     //redesenha toda a tela da gameplay
@@ -317,5 +324,10 @@ export class GameplayMapUi{
     setOffsetCenter(x, y){
         this.offsetX = x + this.canvaWidth/2;
         this.offsetY = y - OFFSET_HEIGTH/2;
+    }
+
+    setLevel(level){
+        this.level = level;
+        this.treeHead = level.gameTree.G[0];
     }
 }

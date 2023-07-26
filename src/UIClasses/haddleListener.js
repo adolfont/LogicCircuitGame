@@ -12,7 +12,6 @@ export function canvaGamaplayHandleClick(event, gameplayState){
     let clickX = event.offsetX;
     let clickY = event.offsetY;
     let gui = gameplayState.gameplayGui
-    let G = gameplayState.gameTree.G;
 
     gameplayState.mapUi.releaseFocus();
     gameplayState.gameplayGui.requestFocus();
@@ -41,14 +40,15 @@ export function canvaGamaplayHandleClick(event, gameplayState){
         }
     }
     
-    for(let i = 0 ; i < G.length ; i++){
+    console.log(gameplayState.gameTree.G.length);
+    for(let i = 0 ; i < gameplayState.gameTree.G.length ; i++){
         /*Se a posição do mouse está dentro dos limites de uma porta*/
-        if(clickX > G[i].x - CLICK_AREA_W/2 && clickX < G[i].x + CLICK_AREA_W/2
-            && clickY > G[i].y && clickY < G[i].y + CLICK_AREA_H){
+        if(clickX > gameplayState.gameTree.G[i].x - CLICK_AREA_W/2 && clickX < gameplayState.gameTree.G[i].x + CLICK_AREA_W/2
+            && clickY > gameplayState.gameTree.G[i].y && clickY < gameplayState.gameTree.G[i].y + CLICK_AREA_H){
 
-            if(G[i].mod){
-                G[i].modify();
-                gui.setCurrentNode(G[i]);
+            if(gameplayState.gameTree.G[i].mod){
+                gameplayState.gameTree.G[i].modify();
+                gui.setCurrentNode(gameplayState.gameTree.G[i]);
             }
 
             
@@ -64,25 +64,25 @@ export function canvaGamaplayHandleMove(event, gui){
 
 
     if(gui.inCutScene != true){
-        if(mousePositionX >= GAME_CANVA_WIDTH*0.8){
+        if(mousePositionX >= GAME_CANVA_WIDTH*0.9){
             gui.horizontalPositiveMove= true;
         }else{
             gui.horizontalPositiveMove= false;
         }
         
-        if(mousePositionX<= GAME_CANVA_WIDTH*0.2){
+        if(mousePositionX<= GAME_CANVA_WIDTH*0.1){
             gui.horizontalNegativeMove = true;
         }else{
             gui.horizontalNegativeMove = false;
         }
     
-        if(mousePositionY >= GAME_CANVA_HEIGHT*0.8){
+        if(mousePositionY >= GAME_CANVA_HEIGHT*0.9){
             gui.verticalPositiveMove= true;
         }else{
             gui.verticalPositiveMove= false;
         }
         
-        if(mousePositionY<= GAME_CANVA_HEIGHT*0.2){
+        if(mousePositionY<= GAME_CANVA_HEIGHT*0.1){
             gui.verticalNegativeMove = true;
         }else{
             gui.verticalNegativeMove = false;

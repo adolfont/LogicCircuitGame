@@ -43,7 +43,7 @@ export class GameplayState{
 
         this.gameplayCanva.addEventListener('click', function(event){
             canvaGamaplayHandleClick(event, state);
-        })
+        });
 
         this.mapUi = new GameplayMapUi(this.mapCanva, this.gameTree.G[0], this.gameplayGui);
         this.mapCanva.addEventListener('click', function(event){
@@ -56,7 +56,14 @@ export class GameplayState{
 
         setInterval(()=>{
             this.gameplayGui.paint();
-            this.mapUi.paintGameBoard(this.gameTree.G[0]);
+            this.mapUi.paint();
+
+            if(this.currentLevel != this.levelManager.currentLevel){
+                this.gameplayGui.setLevel(this.levelManager.getCurrentLevel());
+                this.mapUi.setLevel(this.levelManager.getCurrentLevel());
+                this.currentLevel = this.levelManager.getCurrentLevel();
+                this.gameTree = this.currentLevel.getGameTree();
+            }
         }, 10)
 
     }
