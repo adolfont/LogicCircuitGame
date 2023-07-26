@@ -34,7 +34,7 @@ export class GameTree{
     de nós modificaveis que a arvore de jogo deve ter.
 
     obs.: nós folas não inclusos*/
-    init(nNode, nMod){
+    initRandomized(nNode, nMod){
         this.G[0] = new Node();
         while(this.G.length<nNode){
             this.genRandomTree(this.G[this.G.length-1], nNode)
@@ -157,6 +157,9 @@ export class GameTree{
             for(let i = 0 ; i < this.G.length ; i++){
                 //console.log("a",this.G[i]);
                 this.G[i].setMod(this.ports);
+                if(getRandomIntInclusive(0,1) == 1){
+                    this.G[i].modify();
+                }
                 //console.log("d",this.G[i]);
                 
             }
