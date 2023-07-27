@@ -19,9 +19,11 @@ export class TextBox{
         this.Visible = true;
     }
 
-    setUnvisble(){
-        this.element.remove();
-        this.Visible = false;
+    setUnvisible(){
+        if(this.element!=undefined){  
+            this.element.remove();
+            this.Visible = false;
+        }
     }
 
     getVisible(){
