@@ -62,7 +62,6 @@ export class Node{
     }
 
     listen(){
-        console.log("teste")
         this.script(this);
     }
 }

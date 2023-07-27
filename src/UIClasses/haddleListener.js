@@ -40,7 +40,6 @@ export function canvaGamaplayHandleClick(event, gameplayState){
         }
     }
     
-    console.log(gameplayState.gameTree.G.length);
     for(let i = 0 ; i < gameplayState.gameTree.G.length ; i++){
         /*Se a posição do mouse está dentro dos limites de uma porta*/
         if(clickX > gameplayState.gameTree.G[i].x - CLICK_AREA_W/2 && clickX < gameplayState.gameTree.G[i].x + CLICK_AREA_W/2
