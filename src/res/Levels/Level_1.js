@@ -27,13 +27,8 @@ export class Level_1 extends Level{
             }else{
                 thisLevel.inEventFlag = false;
             }
-        });
+        }, this.gameTree.nodesWithListener);
 
-    }
-
-    /*Executa o script do evento do level*/
-    executeEvent(){
-        this.scripts[this.scriptIndex](this);
     }
 
     /*script de evento do Level*/

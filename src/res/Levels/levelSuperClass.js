@@ -10,6 +10,12 @@ export class Level{
         this.levelMenager = levelMenager;
     }
 
+
+    /*Executa o script do evento do level*/
+    executeEvent(){
+        this.scripts[this.scriptIndex](this);
+    }
+
     setUI(ui){
         this.UI = ui;
     }
