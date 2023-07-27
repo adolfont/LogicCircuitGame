@@ -8,12 +8,17 @@ import { getRandomIntInclusive } from "../auxFuncs.js";
 const AND = 1;
 const OR = 0;
 
+const AND_SCORE = 3;
+const OR_SCORE = 1
+
 
 /*Representa o funcionamento interno do jogo,
 sem interface de usuario, somente suas estruturas de dados.*/
 export class GameTree{
     G = []; //todos os nós da arvore de jogo
     nodesWithListener = [];
+    maximumScore = 0;
+    currentScore = 0;
 
 
     ports = []; //todas as portas possiveis de serem
@@ -50,6 +55,7 @@ export class GameTree{
             this.genRandomTree(this.G[this.G.length-1], nNode)
         }
         this.initTree(nNode, nMod);
+        console.log(this.maximumScore);
     }
     
     init(stringJson){
@@ -58,7 +64,7 @@ export class GameTree{
         this.G[0] = new Node();
 
         this.initTreeJSON(0, this.G[0], jsonNodes);
-        console.log(this.G[0]);
+        console.log(this.maximumScore);
     }
 
     initTreeJSON(i, node,jsonNodes){
@@ -103,6 +109,8 @@ export class GameTree{
         if(node.Rinput != null && node.Linput != null){
             node.bifurcation = node.Rinput.bifurcation + node.Linput.bifurcation + 1;
         }
+
+        this.updateMaximumScore(node);
     }
 
 
@@ -165,13 +173,12 @@ export class GameTree{
         /*caso todos os nós possan ser modificados*/
         if(nNode == nMod){
             for(let i = 0 ; i < this.G.length ; i++){
-                //console.log("a",this.G[i]);
                 this.G[i].setMod(this.ports);
                 if(getRandomIntInclusive(0,1) == 1){
                     this.G[i].modify();
                 }
-                //console.log("d",this.G[i]);
                 
+                this.updateMaximumScore(this.G[i]);
             }
         }
 
@@ -195,6 +202,8 @@ export class GameTree{
                 if(this.G[i].mod == false){
                     this.G[i].port = this.getRandomPort();
                 }
+                
+                this.updateMaximumScore(this.G[i]);
             }
         }
 
@@ -240,5 +249,16 @@ export class GameTree{
         else if(n == 1){
             return this.FalsePortNode;
         }
+    }
+    
+    updateMaximumScore(node){
+        let score = 0;
+        if(node.port.id == "AND"){
+            score = AND_SCORE;
+        }else if(node.port.id == "OR"){
+            score = OR_SCORE;
+        }
+
+        this.maximumScore+=score;
     }
 }
