@@ -55,6 +55,7 @@ export class GameplayState{
         });
 
         setInterval(()=>{
+            this.gameTree.listen()
             this.gameplayGui.paint();
             this.mapUi.paint();
 

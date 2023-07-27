@@ -13,6 +13,8 @@ const OR = 0;
 sem interface de usuario, somente suas estruturas de dados.*/
 export class GameTree{
     G = []; //todos os nós da arvore de jogo
+    nodesWithListener = [];
+
 
     ports = []; //todas as portas possiveis de serem
                 // assumidas pelos nós
@@ -27,6 +29,14 @@ export class GameTree{
 
         this.TruePortNode.port = new TruePort();
         this.FalsePortNode.port = new FalsePort()
+    }
+
+    listen(){
+        if(this.nodesWithListener[0]!=undefined){
+            for(let i = 0; i<this.nodesWithListener.length ; i++){
+                this.nodesWithListener[i].listen();
+            }
+        }
     }
 
     /*nNode é o numero total de nós que a arvore
