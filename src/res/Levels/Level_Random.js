@@ -20,9 +20,6 @@ export class Level_Random extends Level{
             if(node.getOutput()){
                 thisLevel.inEventFlag = true;
                 thisLevel.scriptIndex = 1;
-
-            }else{
-                thisLevel.inEventFlag = false;
             }
         }, this.gameTree.nodesWithListener);
     }

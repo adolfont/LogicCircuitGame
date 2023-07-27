@@ -1,19 +1,13 @@
 export class Level{
     gameTree;
     UI;
-    inEventFlag = false;
+    inEventFlag;
     scripts;
     scriptIndex = 0;
     levelMenager;
 
     constructor(levelMenager){
         this.levelMenager = levelMenager;
-    }
-
-
-    /*Executa o script do evento do level*/
-    executeEvent(){
-        this.scripts[this.scriptIndex](this);
     }
 
     setUI(ui){

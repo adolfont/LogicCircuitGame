@@ -12,6 +12,7 @@ export class Level_1 extends Level{
         this.gameTree = new GameTree();
         this.gameTree.init(jsonString);
         this.inEventFlag = true;
+        this.scriptIndex = 0;
 
         this.scripts =[
             this.script_1,
@@ -24,8 +25,6 @@ export class Level_1 extends Level{
                 thisLevel.inEventFlag = true;
                 thisLevel.scriptIndex = 1;
 
-            }else{
-                thisLevel.inEventFlag = false;
             }
         }, this.gameTree.nodesWithListener);
 
@@ -34,7 +33,7 @@ export class Level_1 extends Level{
     /*script de evento do Level*/
     script_1(level){
         if(level.intervalCount<500){
-            level.eventString = "Obeserve a porta mais a direta na base. Suas duas entradas são verdadeiras e por isso, sendo uma porta AND, sua saída é verdadeira!"
+            level.eventString = "Obeserve a porta mais a direita na base. Suas duas entradas são verdadeiras e por isso, sendo uma porta AND, sua saída é verdadeira!"
             level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 1]);
             level.UI.executeShortcut();
             level.UI.inCutScene = true;

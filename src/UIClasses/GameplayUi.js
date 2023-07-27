@@ -163,7 +163,7 @@ export class GameplayUi{
         if(this.level.inEvent()){
             this.paintLevelEvent();
         }else{
-            this.textBox.setUnvisble();
+            this.textBox.setUnvisible();
         }
 
         if(this.inTransition){
@@ -175,7 +175,6 @@ export class GameplayUi{
                     this.transition = DOWN;
                 }
             }else if(this.transition == DOWN){
-                console.log(this.transitionScreen.opacity, this.transition);
                 this.transitionScreen.downOpacity();
                 if(this.transitionScreen.opacity <= 0){
                     if(this.level.gameTree.G[0]==this.treeHead){
