@@ -7,7 +7,7 @@ export class Level_Random extends Level{
     constructor(levelMenager, nNodes, nMod){
         super(levelMenager);
         let thisLevel = this;
-        this.gameTree = new GameTree();
+        this.gameTree = new GameTree(this.levelMenager.playerScore);
         this.gameTree.initRandomized(nNodes,nMod);
         this.inEventFlag = true;
 

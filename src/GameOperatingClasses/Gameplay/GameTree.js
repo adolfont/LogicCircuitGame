@@ -17,23 +17,38 @@ sem interface de usuario, somente suas estruturas de dados.*/
 export class GameTree{
     G = []; //todos os nós da arvore de jogo
     nodesWithListener = [];
+    player;
     maximumScore = 0;
+    initScore = 0;
     currentScore = 0;
 
 
     ports = []; //todas as portas possiveis de serem
                 // assumidas pelos nós
                 
-    TruePortNode = new Node();
-    FalsePortNode = new Node();
+    TruePortNode = new Node(this);
+    FalsePortNode = new Node(this);
     
 
-    constructor(){
+    constructor(initScore){
         this.ports[0] =(new OrPort());
         this.ports.push(new AndPort());
 
         this.TruePortNode.port = new TruePort();
         this.FalsePortNode.port = new FalsePort()
+
+        this.setInitScore(initScore);
+    }
+
+    scoreUpdate(){
+        this.currentScore = this.initScore;
+        for(let i = 0 ; i<this.G.length ; i++){
+            if(this.G[i].port.id == "AND" && this.G[i].getOutput()){
+                this.currentScore += AND_SCORE;
+            }else if(this.G[i].port.id == "OR" && this.G[i].getOutput()){
+                this.currentScore += OR_SCORE;
+            }
+        }
     }
 
     listen(){
@@ -50,21 +65,21 @@ export class GameTree{
 
     obs.: nós folas não inclusos*/
     initRandomized(nNode, nMod){
-        this.G[0] = new Node();
+        this.G[0] = new Node(this);
         while(this.G.length<nNode){
             this.genRandomTree(this.G[this.G.length-1], nNode)
         }
         this.initTree(nNode, nMod);
-        console.log(this.maximumScore);
+        this.scoreUpdate();
     }
     
     init(stringJson){
         let jsonNodes = JSON.parse(stringJson);
         
-        this.G[0] = new Node();
+        this.G[0] = new Node(this);
 
         this.initTreeJSON(0, this.G[0], jsonNodes);
-        console.log(this.maximumScore);
+        this.scoreUpdate();
     }
 
     initTreeJSON(i, node,jsonNodes){
@@ -86,7 +101,7 @@ export class GameTree{
             }else if(jsonNodes[jsonNodes[i].L].id == "FALSE"){
                 node.Linput = this.FalsePortNode;
             }else{
-                node.Linput = new Node()
+                node.Linput = new Node(this)
                 node.Linput.output = node;
                 this.G.push(node.Linput);
                 this.initTreeJSON(jsonNodes[i].L, node.Linput, jsonNodes); 
@@ -99,7 +114,7 @@ export class GameTree{
             }else if(jsonNodes[jsonNodes[i].R].id == "FALSE"){
                 node.Rinput = this.FalsePortNode;
             }else{
-                node.Rinput = new Node()
+                node.Rinput = new Node(this)
                 node.Rinput.output = node;
                 this.G.push(node.Rinput);
                 this.initTreeJSON(jsonNodes[i].R, node.Rinput, jsonNodes);
@@ -124,7 +139,7 @@ export class GameTree{
         if(n == 1){
             if(this.G.length + 1 <= maxNodes){
         
-                node.Linput = new Node();
+                node.Linput = new Node(this);
                 node.Linput.output = node;
                 this.G.push(node.Linput);
                 this.genRandomTree(node.Linput, maxNodes);
@@ -133,16 +148,16 @@ export class GameTree{
     
             if(this.G.length + 1 <= maxNodes){
                
-                node.Rinput = new Node();
+                node.Rinput = new Node(this);
                 node.Rinput.output = node;
                 this.G.push(node.Rinput);
-                this.genRandomTree(node.Linput, maxNodes);
+                this.genRandomTree(node.Rinput, maxNodes);
     
             }
         }else if(n == 2){
             if(this.G.length + 1 <= maxNodes){
            
-                node.Rinput = new Node();
+                node.Rinput = new Node(this);
                 node.Rinput.output = node;
                 this.G.push(node.Rinput);
                 this.genRandomTree(node.Rinput, maxNodes);
@@ -151,7 +166,7 @@ export class GameTree{
 
             if(this.G.length + 1 <= maxNodes){
         
-                node.Linput = new Node();
+                node.Linput = new Node(this);
                 node.Linput.output = node;
                 this.G.push(node.Linput);
                 this.genRandomTree(node.Linput, maxNodes);
@@ -260,5 +275,14 @@ export class GameTree{
         }
 
         this.maximumScore+=score;
+    }
+
+    getScore(){
+        return this.currentScore;
+    }
+
+    setInitScore(score){
+        this.initScore = score;
+        this.currentScore = score;
     }
 }

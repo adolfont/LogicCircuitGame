@@ -4,6 +4,7 @@ import { Level_Random } from "./Level_Random.js";
 export class LevelManager{
     currentLevel;
     level = 1;
+    playerScore = 0;
 
     constructor(){
         this.currentLevel = new Level_1(this);
@@ -15,6 +16,9 @@ export class LevelManager{
 
     goToNextLevel(){
         this.level+=3;
-        this.currentLevel = new Level_Random(this,this.level, Math.floor(this.level*0.9));
+        console.log(this.currentLevel.gameTree.getScore());
+        this.playerScore = this.currentLevel.gameTree.getScore();
+        this.currentLevel = new Level_Random(this, this.level, Math.floor(this.level*0.9));
+        this.currentLevel.gameTree.setInitScore(this.playerScore);
     }
 }

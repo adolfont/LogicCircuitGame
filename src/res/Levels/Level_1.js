@@ -9,7 +9,7 @@ export class Level_1 extends Level{
         super(levelMenager);
         let thisLevel = this;
         let jsonString = '[{    "id":"AND",    "mod":true,    "L":1,    "R":2    },    {        "id":"OR",        "mod":false,        "L":3,        "R":4            },                    {            "id":"AND",            "mod":false,            "L":5,            "R":6             },    {        "id":"TRUE",        "mod":false,        "L": null,        "R": null    },        {        "id":"FALSE",        "mod":false,        "L": null,        "R": null    },    {        "id":"TRUE",        "mod":false,        "L": null,        "R": null    },    {        "id":"TRUE",        "mod":false,        "L": null,        "R": null    }]';
-        this.gameTree = new GameTree();
+        this.gameTree = new GameTree(0);
         this.gameTree.init(jsonString);
         this.inEventFlag = true;
         this.scriptIndex = 0;

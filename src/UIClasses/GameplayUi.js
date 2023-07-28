@@ -9,6 +9,9 @@ import { TextBox } from "./TextBox.js";
 import { TrasitionScreen } from "./TrasitionScreen.js";
 import { canvaGamaplayHandleClick } from "./haddleListener.js";
 
+const DIALOG_BOX_TAG =  "gameTextBox";
+const SCORE_BOX_TAG = "gameScoreBox";
+
 const LIGHT_WIDTH = 29*GAMEPLAY_SCALE;
 const LIGHT_HEIGHT = 46*GAMEPLAY_SCALE;
 
@@ -38,7 +41,8 @@ const UP = 1;
 const DOWN = 0
 
 export class GameplayUi{
-    textBox = new TextBox()
+    dialogBox = new TextBox();
+    scoreBox = new TextBox();
     transitionScreen;
 
     onLight = new Image();
@@ -88,6 +92,9 @@ export class GameplayUi{
         this.treeHead = head;
         this.level =  level;
         this.level.setUI(this);
+        this.dialogBox.setTag(DIALOG_BOX_TAG);
+        this.scoreBox.setTag(SCORE_BOX_TAG);
+        this.scoreBox.setPrefix("Score: ");
 
         this.canva.addEventListener('mousemove', (event)=>{
             canvaGamaplayHandleMove(event, this);
@@ -153,6 +160,9 @@ export class GameplayUi{
         this.verticalTube[ON].onload = ()=>{
             this.paint();
         }
+
+        this.scoreBox.setVisible();
+        //this.scoreBox.setText(0);
     }
 
     /*Desenha o nivel do jogo*/
@@ -160,10 +170,12 @@ export class GameplayUi{
         this.context.clearRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
         this.paintGameBoard(this.treeHead);
 
+        this.scoreBoxUpdateText();
+
         if(this.level.inEvent()){
             this.paintLevelEvent();
         }else{
-            this.textBox.setUnvisible();
+            this.dialogBox.setUnvisible();
         }
 
         if(this.inTransition){
@@ -188,14 +200,18 @@ export class GameplayUi{
 
     }
 
+    scoreBoxUpdateText(){
+        this.scoreBox.setText(this.level.gameTree.getScore());
+    }
+
     /*Executa do evento do level*/
     paintLevelEvent(){
         this.level.executeEvent();
 
-        if(!this.textBox.getVisible()){
-            this.textBox.setVisible();
+        if(!this.dialogBox.getVisible()){
+            this.dialogBox.setVisible();
         }
-        this.textBox.setText(this.level.getEventString());
+        this.dialogBox.setText(this.level.getEventString());
     }
 
     //redesenha toda a tela da gameplay

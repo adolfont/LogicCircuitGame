@@ -4,6 +4,7 @@ import { TruePort } from "../Ports/TruePort.js";
 import {FalsePort} from "../Ports/FalsePort.js"
 
 export class Node{
+    gameTree;
     x = 0;
     y = 0;
     xInMap = 0;
@@ -22,8 +23,8 @@ export class Node{
         é utilizado para definir o espaçamento 
         horizontal e vertical entre o nó pai e o nó filho*/
 
-    constructor(){
-
+    constructor(gameTree){
+        this.gameTree = gameTree;
     }
 
     //retorna a saída da porta
@@ -49,6 +50,8 @@ export class Node{
         }
         
         this.port = this.vet[this.portIndex];
+
+        this.gameTree.scoreUpdate();
     }
 
     addOutputListener(script, vetListeningNodes){
