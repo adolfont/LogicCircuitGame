@@ -56,6 +56,11 @@ export class GameplayUi{
     rightTube = [];
     horizontalTube = [];
     verticalTube = [];
+    andModPortNoOuputVisualize;
+    orModPortNoOuputVisualize;
+    andNoModPortNoOuputVisualize;
+    orNoModPortNoOuputVisualize;
+
     decorGraphics =  new DecorGraphics(this);
     shortcutImage = new Image();
 
@@ -153,9 +158,18 @@ export class GameplayUi{
         this.horizontalTube[ON].src = "./res/genSprites/onMidTubeH.png"
 
         this.verticalTube[OFF] = new Image();
-        this.verticalTube[OFF].src = "./res/genSprites/offMidTubeV.png"
+        this.verticalTube[OFF].src = "./res/genSprites/offMidTubeV.png";
         this.verticalTube[ON] = new Image();
-        this.verticalTube[ON].src = "./res/genSprites/onMidTubeV.png"
+        this.verticalTube[ON].src = "./res/genSprites/onMidTubeV.png";
+
+        this.andModPortNoOuputVisualize = new Image();
+        this.andModPortNoOuputVisualize.src = "./res/genSprites/andPortMod_NoOutputVisualize.png";
+        this.orModPortNoOuputVisualize = new Image();
+        this.orModPortNoOuputVisualize.src = "./res/genSprites/orPortMod_NoOutputVisualize.png";
+        this.andNoModPortNoOuputVisualize = new Image();
+        this.andNoModPortNoOuputVisualize.src = "./res/genSprites/andPortNoMod_NoOutputVisualize.png";
+        this.orNoModPortNoOuputVisualize = new Image();
+        this.orNoModPortNoOuputVisualize.src = "./res/genSprites/orPortNoMod_NoOutputVisualize.png";
 
         this.verticalTube[ON].onload = ()=>{
             this.paint();
@@ -172,6 +186,7 @@ export class GameplayUi{
 
         this.scoreBoxUpdateText();
 
+        /*Caso o nivel tenha iniciado um evento*/
         if(this.level.inEvent()){
             this.paintLevelEvent();
         }else{
@@ -284,7 +299,7 @@ export class GameplayUi{
 
         if(head.Rinput.port.id!="TRUE" && head.Rinput.port.id!="FALSE"){
             
-            if(head.Rinput.getOutput()){
+            if(head.Rinput.getOutput() && head.Rinput.outputVisualize){
                 this.context.drawImage(this.horizontalTube[ON],  x, y, w, TUBE_HEIGHT);
                 this.context.drawImage(this.rightTube[ON], x + w, y, TUBE_WIDTH, TUBE_HEIGHT);
                 this.context.drawImage(this.verticalTube[ON], head.Rinput.x + 1, y + TUBE_HEIGHT - 2, TUBE_WIDTH, h);
@@ -310,7 +325,7 @@ export class GameplayUi{
         
         if(head.Linput.port.id!="TRUE" && head.Linput.port.id!="FALSE"){
             
-            if(head.Linput.getOutput()){
+            if(head.Linput.getOutput() && head.Linput.outputVisualize){
                 this.context.drawImage(this.horizontalTube[ON], head.Linput.x + TUBE_WIDTH, y, w - TUBE_WIDTH, TUBE_HEIGHT);
                 this.context.drawImage(this.leftTube[ON], head.Linput.x, y, TUBE_WIDTH, TUBE_HEIGHT);
                 this.context.drawImage(this.verticalTube[ON], head.Linput.x - 1, y + TUBE_HEIGHT - 2, TUBE_WIDTH, h);
@@ -328,51 +343,74 @@ export class GameplayUi{
     //desenha a porta
     paintPort(head){
 
-        if(head.getOutput()){
+        if(head.outputVisualize){
+            if(head.getOutput()){
+
+                if(head.mod){
+                    //caso a porta seja modificavel e esteja ligada
+    
+                    if(head.port.id == "AND"){
+                        this.context.drawImage(this.andModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }else if(head.port.id == "OR") {
+                        this.context.drawImage(this.orModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }
+    
+                }else{
+                    //caso a porta não seja modificavel e esteja ligada
+                    if(head.port.id == "AND"){
+                        this.context.drawImage(this.andNoModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }else if(head.port.id == "OR"){
+                        this.context.drawImage(this.orNoModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }else{
+                        this.paintLeaf(head);
+                    }
+                }
+    
+            }else{
+    
+                
+                if(head.mod){
+                //caso a porta seja modificavel e esteja desligada
+                    
+                    if(head.port.id == "AND"){
+                        this.context.drawImage(this.andModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }else if(head.port.id == "OR"){
+                        this.context.drawImage(this.orModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }
+    
+                }else{
+                    //caso a porta não seja modificavel e esteja desligada
+    
+                    if(head.port.id == "AND"){
+                        this.context.drawImage(this.andNoModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }else if(head.port.id == "OR"){
+                        this.context.drawImage(this.orNoModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    }else{
+                        this.paintLeaf(head);
+                    }
+    
+                }
+            }
+        }else{
 
             if(head.mod){
                 //caso a porta seja modificavel e esteja ligada
-
+    
                 if(head.port.id == "AND"){
-                    this.context.drawImage(this.andModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    this.context.drawImage(this.andModPortNoOuputVisualize, head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
                 }else if(head.port.id == "OR") {
-                    this.context.drawImage(this.orModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    this.context.drawImage(this.orModPortNoOuputVisualize, head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
                 }
-
+    
             }else{
                 //caso a porta não seja modificavel e esteja ligada
                 if(head.port.id == "AND"){
-                    this.context.drawImage(this.andNoModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    this.context.drawImage(this.andNoModPortNoOuputVisualize, head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
                 }else if(head.port.id == "OR"){
-                    this.context.drawImage(this.orNoModPort[ON], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
+                    this.context.drawImage(this.orNoModPortNoOuputVisualize, head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
                 }else{
                     this.paintLeaf(head);
                 }
-            }
-
-        }else{
-
-            
-            if(head.mod){
-            //caso a porta seja modificavel e esteja desligada
-                
-                if(head.port.id == "AND"){
-                    this.context.drawImage(this.andModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
-                }else if(head.port.id == "OR"){
-                    this.context.drawImage(this.orModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
-                }
-
-            }else{
-                //caso a porta não seja modificavel e esteja desligada
-
-                if(head.port.id == "AND"){
-                    this.context.drawImage(this.andNoModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
-                }else if(head.port.id == "OR"){
-                    this.context.drawImage(this.orNoModPort[OFF], head.x - PORT_WIDTH/2, head.y, PORT_WIDTH, PORT_HEIGHT);
-                }else{
-                    this.paintLeaf(head);
-                }
-
             }
         }
 

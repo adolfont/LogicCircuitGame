@@ -8,8 +8,8 @@ import { getRandomIntInclusive } from "../auxFuncs.js";
 const AND = 1;
 const OR = 0;
 
-const AND_SCORE = 3;
-const OR_SCORE = 1
+const AND_SCORE = 25;
+const OR_SCORE = 19
 
 
 /*Representa o funcionamento interno do jogo,
@@ -51,6 +51,7 @@ export class GameTree{
         }
     }
 
+    //Executa os scripts de output Listener
     listen(){
         if(this.nodesWithListener[0]!=undefined){
             for(let i = 0; i<this.nodesWithListener.length ; i++){
@@ -64,12 +65,12 @@ export class GameTree{
     de nós modificaveis que a arvore de jogo deve ter.
 
     obs.: nós folas não inclusos*/
-    initRandomized(nNode, nMod){
+    initRandomized(nNode, nMod, nNoVisualizeOutput){
         this.G[0] = new Node(this);
         while(this.G.length<nNode){
             this.genRandomTree(this.G[this.G.length-1], nNode)
         }
-        this.initTree(nNode, nMod);
+        this.initTree(nNode, nMod, nNoVisualizeOutput); 
         this.scoreUpdate();
     }
     
@@ -182,8 +183,10 @@ export class GameTree{
     }
 
     /*inicializa os nós da arvore*/
-    initTree(nNode, nMod){
+    initTree(nNode, nMod, nNoVisualizeOutput){
         this.initLeaf(this.G[0]);
+        let noVisualizeOutputCount = 0;
+        let index;
 
         /*caso todos os nós possan ser modificados*/
         if(nNode == nMod){
@@ -200,7 +203,6 @@ export class GameTree{
         /*caso nMod<nNode*/
         else{
             let modCount = 0;
-            let index;
 
             /*Escolhe aleatoriamente os nós modificaveis*/
             while(modCount < nMod){
@@ -214,11 +216,19 @@ export class GameTree{
 
             /*define a porta dos nós não modificaveis*/
             for(let i = 0 ; i<nNode ; i++){
-                if(this.G[i].mod == false){
+                if(this.G[i].mod == false ){
                     this.G[i].port = this.getRandomPort();
                 }
                 
                 this.updateMaximumScore(this.G[i]);
+            }
+        }
+
+        while(noVisualizeOutputCount < nNoVisualizeOutput){
+            index = getRandomIntInclusive(0,this.G.length - 1);
+            if(this.G[index].outputVisualize && index != 0){
+                this.G[index].outputVisualize = false;
+                noVisualizeOutputCount++;
             }
         }
 

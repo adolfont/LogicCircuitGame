@@ -17,6 +17,7 @@ export class Node{
     vet = []; /* caso mod == true, define quais portas o atributo
         port pode assumir*/
     portIndex = 0; //define o elemento em vet
+    outputVisualize = true;
 
     bifurcation = 0;    /*O peso que mede a quantide de nós
         em que seus filhos não são folhas,
