@@ -59,6 +59,7 @@ export class GameplayState{
             this.gameplayGui.paint();
             this.mapUi.paint();
 
+            //Caso o nivel tenha sido alterado
             if(this.currentLevel != this.levelManager.currentLevel){
                 this.gameplayGui.setLevel(this.levelManager.getCurrentLevel());
                 this.mapUi.setLevel(this.levelManager.getCurrentLevel());

@@ -2,9 +2,12 @@ export class Level{
     gameTree;
     UI;
     inEventFlag;
-    scripts;
+    scripts;    /*Guarda os scripts de evento do nivel*/
     scriptIndex = 0;
     levelMenager;
+
+    /*Para um evento ser iniciado, basta definir inEventFlag = true
+    e então indicar o script a se executado por meio do scriptIndex*/
 
     constructor(levelMenager){
         this.levelMenager = levelMenager;
