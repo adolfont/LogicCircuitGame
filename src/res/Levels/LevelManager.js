@@ -15,7 +15,7 @@ export class LevelManager{
     }
 
     goToNextLevel(){
-        this.level+=3;
+        this.level+=1;
         this.playerScore = this.currentLevel.gameTree.getScore();
         this.currentLevel = new Level_Random(this, this.level, Math.floor(this.level*0.9),Math.floor(this.playerScore*0.002));
         this.currentLevel.gameTree.setInitScore(this.playerScore);

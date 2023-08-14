@@ -18,6 +18,7 @@ export class Node{
         port pode assumir*/
     portIndex = 0; //define o elemento em vet
     outputVisualize = true;
+    deniel = false;
 
     bifurcation = 0;    /*O peso que mede a quantide de nós
         em que seus filhos não são folhas,
@@ -30,7 +31,11 @@ export class Node{
 
     //retorna a saída da porta
     getOutput(){
-        return this.port.result(this.Linput, this.Rinput);
+        if(this.deniel){
+            return !(this.port.result(this.Linput, this.Rinput));
+        }else{
+            return this.port.result(this.Linput, this.Rinput);
+        }
     }
 
     //define o nó como modificavel
@@ -52,6 +57,11 @@ export class Node{
         
         this.port = this.vet[this.portIndex];
 
+        this.gameTree.scoreUpdate();
+    }
+
+    denielApply(){
+        this.deniel = true;
         this.gameTree.scoreUpdate();
     }
 

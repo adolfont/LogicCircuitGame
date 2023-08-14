@@ -8,6 +8,8 @@ import {DecorGraphics} from "./DecorGraphics.js";
 import { TextBox } from "./TextBox.js";
 import { TrasitionScreen } from "./TrasitionScreen.js";
 import { canvaGamaplayHandleClick } from "./haddleListener.js";
+import { DenielButton } from "./OperatingUIAssitentsClasses/DenielButton.js";
+import { DenielPin } from "./OperatingUIAssitentsClasses/DenielPin.js";
 
 const DIALOG_BOX_TAG =  "gameTextBox";
 const SCORE_BOX_TAG = "gameScoreBox";
@@ -70,6 +72,9 @@ export class GameplayUi{
     currentNode = null; //a ultimo nó modificado pelo usuário
     shortcutUI = new ShortcutUIFunc(this); //para o funcionamento interno dos
                                             //botões de atalho
+
+    denielPin = new DenielPin();
+    denielButton =  new DenielButton(this.denielPin);
 
     horizontalPositiveMove = false;
     horizontalNegativeMove = false;
@@ -183,6 +188,11 @@ export class GameplayUi{
     paint(){
         this.context.clearRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
         this.paintGameBoard(this.treeHead);
+        this.denielButton.paint(this.context);
+
+        if(this.denielPin.visible == true){
+            this.denielPin.paint(this.context);
+        }
 
         this.scoreBoxUpdateText();
 
@@ -193,6 +203,7 @@ export class GameplayUi{
             this.dialogBox.setUnvisible();
         }
 
+        /*Caso esteja em trnasição de fase*/
         if(this.inTransition){
             
             if(this.transition == UP){
@@ -217,6 +228,10 @@ export class GameplayUi{
 
     scoreBoxUpdateText(){
         this.scoreBox.setText(this.level.gameTree.getScore());
+    }
+
+    paintDenielPin(){
+
     }
 
     /*Executa do evento do level*/
@@ -414,6 +429,9 @@ export class GameplayUi{
             }
         }
 
+        if(head.deniel){
+            this.context.strokeRect(head.x - PORT_WIDTH/2 - 10, head.y - 10, PORT_WIDTH + 20, PORT_HEIGHT + 20)
+        }
     }
 
     //desenha os nós folhas que são portas booleanas

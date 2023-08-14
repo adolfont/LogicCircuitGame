@@ -45,7 +45,9 @@ export function canvaGamaplayHandleClick(event, gameplayState){
         if(clickX > gameplayState.gameTree.G[i].x - CLICK_AREA_W/2 && clickX < gameplayState.gameTree.G[i].x + CLICK_AREA_W/2
             && clickY > gameplayState.gameTree.G[i].y && clickY < gameplayState.gameTree.G[i].y + CLICK_AREA_H){
 
-            if(gameplayState.gameTree.G[i].mod){
+            if(gui.denielButton.press){
+                gameplayState.gameTree.G[i].denielApply();
+            }else if(gameplayState.gameTree.G[i].mod){
                 gameplayState.gameTree.G[i].modify();
                 gui.setCurrentNode(gameplayState.gameTree.G[i]);
             }
@@ -54,12 +56,23 @@ export function canvaGamaplayHandleClick(event, gameplayState){
         }
     }
 
+        
+    if(gui.denielButton.x<clickX && gui.denielButton.w + gui.denielButton.x>clickX && gui.denielButton.y<clickY && gui.denielButton.h + gui.denielButton.y>clickY){
+        gui.denielButton.callback();
+    }else if(gui.denielButton.press == true){
+        gui.denielButton.callback();
+    }
+
 
 }
 
 export function canvaGamaplayHandleMove(event, gui){
     let mousePositionX =  event.offsetX;
     let mousePositionY = event.offsetY;
+
+    if(gui.denielButton.press){
+        gui.denielPin.updateDenielPinPos(mousePositionX,mousePositionY);
+    }
 
 
     if(gui.inCutScene != true){
