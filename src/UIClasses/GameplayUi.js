@@ -32,6 +32,9 @@ const SHORTCUT_HEIGHT = 20*GAMEPLAY_SCALE;
 const FLOOR_WIDTH = 640*GAMEPLAY_SCALE;
 const FLOOR_HEIGHT = 360*GAMEPLAY_SCALE;
 
+export const DENIED_PIN_HEIGHT = 15*GAMEPLAY_SCALE;
+export const DENIED_PIN_WIDTH = 16*GAMEPLAY_SCALE;
+
 const EDGE = PORT_WIDTH;
 
 export const CLICK_AREA_W = PORT_WIDTH;
@@ -62,6 +65,7 @@ export class GameplayUi{
     orModPortNoOuputVisualize;
     andNoModPortNoOuputVisualize;
     orNoModPortNoOuputVisualize;
+    deniedPinImage = new Image();
 
     decorGraphics =  new DecorGraphics(this);
     shortcutImage = new Image();
@@ -73,9 +77,8 @@ export class GameplayUi{
     shortcutUI = new ShortcutUIFunc(this); //para o funcionamento interno dos
                                             //botões de atalho
 
-    denielPin = new DenielPin();
-    denielButton =  new DenielButton(this.denielPin);
-
+    denielPin;
+    denielButton;
     horizontalPositiveMove = false;
     horizontalNegativeMove = false;
 
@@ -145,7 +148,7 @@ export class GameplayUi{
         this.energyFont[OFF] = new Image();
         this.energyFont[OFF].src = "./res/genSprites/energyOffSource.png";
         this.energyFont[ON] = new Image();
-        this.energyFont[ON].src = "./res/genSprites/energyONSource.png";
+        this.energyFont[ON].src = "./res/genSprites/energyOnSource.png";
 
         this.rightTube[OFF] = new Image();
         this.rightTube[OFF].src = "./res/genSprites/offRightTube.png"
@@ -175,6 +178,11 @@ export class GameplayUi{
         this.andNoModPortNoOuputVisualize.src = "./res/genSprites/andPortNoMod_NoOutputVisualize.png";
         this.orNoModPortNoOuputVisualize = new Image();
         this.orNoModPortNoOuputVisualize.src = "./res/genSprites/orPortNoMod_NoOutputVisualize.png";
+
+        this.deniedPinImage.src = "./res/pins/deniedPin.png";
+
+        this.denielPin = new DenielPin(this.deniedPinImage);
+        this.denielButton =  new DenielButton(this.denielPin, this.deniedPinImage);
 
         this.verticalTube[ON].onload = ()=>{
             this.paint();
@@ -430,7 +438,7 @@ export class GameplayUi{
         }
 
         if(head.deniel){
-            this.context.strokeRect(head.x - PORT_WIDTH/2 - 10, head.y - 10, PORT_WIDTH + 20, PORT_HEIGHT + 20)
+            this.context.drawImage(this.deniedPinImage, head.x, head.y + PORT_HEIGHT/1.5 + DENIED_PIN_HEIGHT/2, DENIED_PIN_WIDTH, DENIED_PIN_HEIGHT)
         }
     }
 
