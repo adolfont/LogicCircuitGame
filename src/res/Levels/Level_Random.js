@@ -1,6 +1,8 @@
 import { Level } from "./levelSuperClass.js";
 import { GameTree } from "../../GameOperatingClasses/Gameplay/GameTree.js";
 
+var flag = false;
+
 export class Level_Random extends Level{
     intervalCount = 0;
     nodeOfInterest = null;
@@ -37,7 +39,7 @@ export class Level_Random extends Level{
 
      /*script de evento do Level*/
     script_1(level){
-        if(level.nodeOfInterest!=null && level.intervalCount == 0){
+        if(level.nodeOfInterest!=null && level.intervalCount == 0 && !flag){
             level.scriptIndex = 2;
         }
         
@@ -73,6 +75,7 @@ export class Level_Random extends Level{
     }
 
     script_3(level){
+        flag = true;
         if(level.intervalCount<100){
             level.UI.setCurrentNode(level.nodeOfInterest);
             level.UI.executeShortcut();
