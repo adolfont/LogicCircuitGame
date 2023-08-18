@@ -3,7 +3,7 @@ export class PinsManager{
     denielPinCount = 0;
 
     addDenielPin(){
-        if(denielPins<3){    
+        if(this.denielPins<3){    
             this.denielPins++;
         }
     }
