@@ -32,12 +32,12 @@ export class Level_1 extends Level{
 
     /*script de evento do Level*/
     script_1(level){
-        if(level.intervalCount<500){
+        if(level.intervalCount<250){
             level.eventString = "Obeserve a porta mais a direita na base. Suas duas entradas são verdadeiras e por isso, sendo uma porta AND, sua saída é verdadeira!"
             level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 1]);
             level.UI.executeShortcut();
             level.UI.inCutScene = true;
-        }else if (level.intervalCount<1000){
+        }else if (level.intervalCount<500){
 
             level.eventString = "Porém, a mesma porta tem uma saída diferente caso qualquer uma das suas entradas seja falsa."
             level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 2]);
@@ -58,9 +58,9 @@ export class Level_1 extends Level{
         level.UI.setCurrentNode(level.gameTree.G[0]);
         level.UI.executeShortcut();
 
-        if(level.intervalCount<1500){
+        if(level.intervalCount<1250){
             level.eventString = "Parabens! Você conseguiu energizar a torre!";
-        }else if(level.intervalCount<2000){
+        }else if(level.intervalCount<1500){
             level.eventString = "Agora observe a porta OR no topo. Ela terá sua saída verdadeira sempre que qualquer uma de suas entradas for verdadeira.";
         }else{
             level.inEventFlag = false;

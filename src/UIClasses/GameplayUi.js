@@ -73,8 +73,8 @@ export class GameplayUi{
     shortcutUI = new ShortcutUIFunc(this); //para o funcionamento interno dos
                                             //botões de atalho
 
-    denielPin = new DenielPin();
-    denielButton =  new DenielButton(this.denielPin);
+    denielPin;
+    denielButton;
 
     horizontalPositiveMove = false;
     horizontalNegativeMove = false;
@@ -95,7 +95,7 @@ export class GameplayUi{
     level;
 
 
-    constructor(canva, head, level){
+    constructor(canva, head, level, pinsManager){
         this.canva = canva;
         this.context = canva.getContext('2d');
         this.transitionScreen = new TrasitionScreen(this.context);
@@ -182,6 +182,10 @@ export class GameplayUi{
 
         this.scoreBox.setVisible();
         //this.scoreBox.setText(0);
+
+        
+        this.denielPin = new DenielPin();
+        this.denielButton =  new DenielButton(this.denielPin,pinsManager);
     }
 
     /*Desenha o nivel do jogo*/
@@ -633,4 +637,7 @@ export class GameplayUi{
         this.inTransition = true;
     }
 
+    getDenielPinButton(){
+        return this.denielButton;
+    }
 }

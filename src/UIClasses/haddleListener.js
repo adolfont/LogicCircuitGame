@@ -47,6 +47,7 @@ export function canvaGamaplayHandleClick(event, gameplayState){
 
             if(gui.denielButton.press){
                 gameplayState.gameTree.G[i].denielApply();
+                gui.denielButton.pinManager.subDenielPin();
             }else if(gameplayState.gameTree.G[i].mod){
                 gameplayState.gameTree.G[i].modify();
                 gui.setCurrentNode(gameplayState.gameTree.G[i]);

@@ -39,7 +39,9 @@ export class GameplayState{
 
         this.gameTree = this.currentLevel.getGameTree();
 
-        this.gameplayGui = new GameplayUi(this.gameplayCanva, this.gameTree.G[0], this.currentLevel);
+        this.gameplayGui = new GameplayUi(this.gameplayCanva, this.gameTree.G[0], this.currentLevel, this.levelManager.getPinManager());
+
+        
 
         this.gameplayCanva.addEventListener('click', function(event){
             canvaGamaplayHandleClick(event, state);
