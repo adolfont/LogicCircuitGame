@@ -32,6 +32,9 @@ const SHORTCUT_HEIGHT = 20*GAMEPLAY_SCALE;
 const FLOOR_WIDTH = 640*GAMEPLAY_SCALE;
 const FLOOR_HEIGHT = 360*GAMEPLAY_SCALE;
 
+export const DENIED_PIN_HEIGHT = 15*GAMEPLAY_SCALE;
+export const DENIED_PIN_WIDTH = 16*GAMEPLAY_SCALE;
+
 const EDGE = PORT_WIDTH;
 
 export const CLICK_AREA_W = PORT_WIDTH;
@@ -62,6 +65,7 @@ export class GameplayUi{
     orModPortNoOuputVisualize;
     andNoModPortNoOuputVisualize;
     orNoModPortNoOuputVisualize;
+    deniedPinImage = new Image();
 
     decorGraphics =  new DecorGraphics(this);
     shortcutImage = new Image();
@@ -176,6 +180,9 @@ export class GameplayUi{
         this.orNoModPortNoOuputVisualize = new Image();
         this.orNoModPortNoOuputVisualize.src = "./res/genSprites/orPortNoMod_NoOutputVisualize.png";
 
+        this.deniedPinImage.src =  "./res/pins/deniedPin.png";
+
+
         this.verticalTube[ON].onload = ()=>{
             this.paint();
         }
@@ -184,8 +191,8 @@ export class GameplayUi{
         //this.scoreBox.setText(0);
 
         
-        this.denielPin = new DenielPin();
-        this.denielButton =  new DenielButton(this.denielPin,pinsManager);
+        this.denielPin = new DenielPin(this.deniedPinImage);
+        this.denielButton =  new DenielButton(this.denielPin,pinsManager, this.deniedPinImage);
     }
 
     /*Desenha o nivel do jogo*/
@@ -434,7 +441,7 @@ export class GameplayUi{
         }
 
         if(head.deniel){
-            this.context.strokeRect(head.x - PORT_WIDTH/2 - 10, head.y - 10, PORT_WIDTH + 20, PORT_HEIGHT + 20)
+            this.context.drawImage(this.deniedPinImage, head.x, head.y + PORT_HEIGHT/1.5 + DENIED_PIN_HEIGHT/2, DENIED_PIN_WIDTH, DENIED_PIN_HEIGHT);
         }
     }
 

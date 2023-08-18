@@ -79,7 +79,7 @@ export class GameplayMapUi{
         this.energyFont[OFF] = new Image();
         this.energyFont[OFF].src = "./res/genSprites/energyOffSource.png";
         this.energyFont[ON] = new Image();
-        this.energyFont[ON].src = "./res/genSprites/energyONSource.png";
+        this.energyFont[ON].src = "./res/genSprites/energyOnSource.png";
 
         this.rightTube[OFF] = new Image();
         this.rightTube[OFF].src = "./res/genSprites/offRightTube.png"
