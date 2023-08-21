@@ -91,6 +91,7 @@ export class Level_Random extends Level{
             level.UI.inCutScene = false;
             level.intervalCount = 0;
             level.scriptIndex = 0;
+            flag = true;
         }
         
         level.intervalCount++;

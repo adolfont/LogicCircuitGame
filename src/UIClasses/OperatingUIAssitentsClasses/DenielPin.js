@@ -1,5 +1,5 @@
-import { DENIED_PIN_WIDTH} from "../GameplayUi.js";
 import { DENIED_PIN_HEIGHT } from "../GameplayUi.js";
+import { DENIED_PIN_WIDTH } from "../GameplayUi.js";
 
 export class DenielPin {
     visible = false;
@@ -12,7 +12,7 @@ export class DenielPin {
     }
 
     paint(g){
-        g.drawImage(this.image,this.x,this.y,DENIED_PIN_WIDTH,DENIED_PIN_HEIGHT)
+        g.drawImage(this.image,this.x,this.y,DENIED_PIN_WIDTH,DENIED_PIN_HEIGHT);
     }
 
     updateDenielPinPos(x,y){

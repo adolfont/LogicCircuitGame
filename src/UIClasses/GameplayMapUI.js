@@ -169,7 +169,7 @@ export class GameplayMapUi{
 
         if(head.Rinput.port.id!="TRUE" && head.Rinput.port.id!="FALSE"){
             
-            if(head.Rinput.getOutput() && head.Linput.outputVisualize){
+            if(head.Rinput.getOutput() && head.Rinput.outputVisualize){
                 this.context.drawImage(this.horizontalTube[ON],  x, y, w, TUBE_HEIGHT);
                 this.context.drawImage(this.rightTube[ON], x + w, y, TUBE_WIDTH, TUBE_HEIGHT);
                 this.context.drawImage(this.verticalTube[ON], head.Rinput.xInMap + 1, y + TUBE_HEIGHT - 2, TUBE_WIDTH, h);

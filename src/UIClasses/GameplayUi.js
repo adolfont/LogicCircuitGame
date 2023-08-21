@@ -79,6 +79,7 @@ export class GameplayUi{
 
     denielPin;
     denielButton;
+
     horizontalPositiveMove = false;
     horizontalNegativeMove = false;
 
@@ -98,7 +99,7 @@ export class GameplayUi{
     level;
 
 
-    constructor(canva, head, level){
+    constructor(canva, head, level, pinsManager){
         this.canva = canva;
         this.context = canva.getContext('2d');
         this.transitionScreen = new TrasitionScreen(this.context);
@@ -179,10 +180,8 @@ export class GameplayUi{
         this.orNoModPortNoOuputVisualize = new Image();
         this.orNoModPortNoOuputVisualize.src = "./res/genSprites/orPortNoMod_NoOutputVisualize.png";
 
-        this.deniedPinImage.src = "./res/pins/deniedPin.png";
+        this.deniedPinImage.src =  "./res/pins/deniedPin.png";
 
-        this.denielPin = new DenielPin(this.deniedPinImage);
-        this.denielButton =  new DenielButton(this.denielPin, this.deniedPinImage);
 
         this.verticalTube[ON].onload = ()=>{
             this.paint();
@@ -190,6 +189,10 @@ export class GameplayUi{
 
         this.scoreBox.setVisible();
         //this.scoreBox.setText(0);
+
+        
+        this.denielPin = new DenielPin(this.deniedPinImage);
+        this.denielButton =  new DenielButton(this.denielPin,pinsManager, this.deniedPinImage);
     }
 
     /*Desenha o nivel do jogo*/
@@ -438,7 +441,7 @@ export class GameplayUi{
         }
 
         if(head.deniel){
-            this.context.drawImage(this.deniedPinImage, head.x, head.y + PORT_HEIGHT/1.5 + DENIED_PIN_HEIGHT/2, DENIED_PIN_WIDTH, DENIED_PIN_HEIGHT)
+            this.context.drawImage(this.deniedPinImage, head.x, head.y + PORT_HEIGHT/1.5 + DENIED_PIN_HEIGHT/2, DENIED_PIN_WIDTH, DENIED_PIN_HEIGHT);
         }
     }
 
@@ -641,4 +644,7 @@ export class GameplayUi{
         this.inTransition = true;
     }
 
+    getDenielPinButton(){
+        return this.denielButton;
+    }
 }

@@ -4,14 +4,19 @@ export class TextBox{
     element;
     Visible = false;
     prefix = '';
+    sufix = '';
 
     setText(string){
-        this.text = this.prefix + string;
+        this.text = this.prefix + string + this.sufix;
         this.element.textContent = this.text;
     }
 
     setPrefix(string){
         this.prefix = string;
+    }
+
+    setSufix(string){
+        this.sufix = string;
     }
 
     setVisible(){
