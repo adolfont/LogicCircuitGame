@@ -115,7 +115,7 @@ export function canvaMiniMapHandleClick(event, state){
 
 export function canvaMiniMapHandleMove(event, state){
     if(state.mapUi.focus){
-        let x = (event.offsetX  - OFFSET_WIDTH) / SCALE_RELATIVE_TO_GAMEPLAY - GAME_CANVA_WIDTH/2;
+        let x = (event.offsetX  - OFFSET_WIDTH/2) / SCALE_RELATIVE_TO_GAMEPLAY;
         let y = (event.offsetY  - OFFSET_HEIGTH/2)/ SCALE_RELATIVE_TO_GAMEPLAY;
         state.gameplayGui.setOffsetCenter(x,y);
     }

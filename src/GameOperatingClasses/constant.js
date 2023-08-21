@@ -1,2 +1,2 @@
-export const GAME_CANVA_WIDTH =  1280;
-export const GAME_CANVA_HEIGHT = 720;
+export const GAME_CANVA_WIDTH =  window.innerWidth;
+export const GAME_CANVA_HEIGHT = window.innerHeight;
