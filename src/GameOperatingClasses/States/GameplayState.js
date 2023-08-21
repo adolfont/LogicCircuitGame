@@ -4,7 +4,9 @@ import {GameplayUi} from "../../UIClasses/GameplayUi.js";
 import {GameTree} from "../Gameplay/GameTree.js"
 import { GameplayMapUi } from "../../UIClasses/GameplayMapUI.js";
 import { canvaMiniMapHandleMove } from "../../UIClasses/haddleListener.js";
-import {LevelManager} from "../../res/Levels/LevelManager.js"
+import {LevelManager} from "../../res/Levels/LevelManager.js";
+import { handleMouseDown } from "../../UIClasses/haddleListener.js";
+import { handleMouseUp } from "../../UIClasses/haddleListener.js";
 
 export class GameplayState{
     wiondow;
@@ -47,6 +49,14 @@ export class GameplayState{
             canvaGamaplayHandleClick(event, state);
         });
 
+        this.gameplayCanva.addEventListener('mousedown', function(event){
+            handleMouseDown(state.gameplayGui, event);
+        });
+
+        this.gameplayCanva.addEventListener('mouseup', function(event){
+            handleMouseUp();
+        });
+
         this.mapUi = new GameplayMapUi(this.mapCanva, this.gameTree.G[0], this.gameplayGui);
         this.mapCanva.addEventListener('click', function(event){
             canvaMiniMapHandleClick(event, state);
@@ -55,6 +65,7 @@ export class GameplayState{
         this.mapCanva.addEventListener('mousemove', (event)=>{
             canvaMiniMapHandleMove(event, state);
         });
+
 
         setInterval(()=>{
             this.gameTree.listen()

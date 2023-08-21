@@ -8,6 +8,13 @@ import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
 import {OFFSET_WIDTH} from "./GameplayMapUI.js";
 import {OFFSET_HEIGTH} from "./GameplayMapUI.js";
 
+var interval;
+var lastXMousePos = 0;
+var lastYMousePos = 0;
+var intervalNumber = 0;
+var clientX;
+var clientY;
+
 export function canvaGamaplayHandleClick(event, gameplayState){
     let clickX = event.offsetX;
     let clickY = event.offsetY;
@@ -44,7 +51,8 @@ export function canvaGamaplayHandleClick(event, gameplayState){
         /*Se a posição do mouse está dentro dos limites de uma porta*/
         if(clickX > gameplayState.gameTree.G[i].x - CLICK_AREA_W/2 && clickX < gameplayState.gameTree.G[i].x + CLICK_AREA_W/2
             && clickY > gameplayState.gameTree.G[i].y && clickY < gameplayState.gameTree.G[i].y + CLICK_AREA_H){
-
+            
+            interval = null;
             if(gui.denielButton.press){
                 gameplayState.gameTree.G[i].denielApply();
                 gui.denielButton.pinManager.subDenielPin();
@@ -52,8 +60,6 @@ export function canvaGamaplayHandleClick(event, gameplayState){
                 gameplayState.gameTree.G[i].modify();
                 gui.setCurrentNode(gameplayState.gameTree.G[i]);
             }
-
-            
         }
     }
 
@@ -67,9 +73,45 @@ export function canvaGamaplayHandleClick(event, gameplayState){
 
 }
 
+function handleMouseDownInterval(){
+
+}
+
+export function handleMouseUp(){
+    clearInterval(interval)
+    intervalNumber = 0
+}
+
+export function handleMouseDown(gui, e){
+    if(e.buttons==1){
+        interval = setInterval(function(){
+            let diffoffsetX;
+            let diffoffsetY;    
+
+            if(intervalNumber == 0){
+                lastXMousePos = clientX;
+                lastYMousePos = clientY;
+                intervalNumber++;
+            }else{
+                diffoffsetX = clientX - lastXMousePos;
+                diffoffsetY = clientY - lastYMousePos;
+                gui.offsetX -= diffoffsetX;
+                gui.offsetY -=diffoffsetY;
+                
+                lastXMousePos = clientX;
+                lastYMousePos = clientY;
+                
+                console.log(clientX);
+            }
+        }, 10);
+    }
+}
+
 export function canvaGamaplayHandleMove(event, gui){
     let mousePositionX =  event.offsetX;
     let mousePositionY = event.offsetY;
+    clientX = mousePositionX;
+    clientY = mousePositionY;
 
     if(gui.denielButton.press){
         gui.denielPin.updateDenielPinPos(mousePositionX,mousePositionY);

@@ -193,9 +193,10 @@ export class GameTree{
             for(let i = 0 ; i < this.G.length ; i++){
                 this.G[i].setMod(this.ports);
                 if(getRandomIntInclusive(0,1) == 1){
-                    this.G[i].modify();
+                    this.G[i].portIndex++;
+                    this.G[i].port = this.G[i].vet[this.G[i].portIndex];
                 }
-                
+                if(this.G[i].port == undefined){console.log("AQUI")}
                 this.updateMaximumScore(this.G[i]);
             }
         }
