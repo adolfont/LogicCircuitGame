@@ -113,11 +113,10 @@ export function handleMouseDown(gui, e){
 export function canvaGamaplayHandleMove(event, gui){
     let mousePositionX =  event.offsetX;
     let mousePositionY = event.offsetY;
+    clientX = mousePositionX;
+    clientY = mousePositionY; 
 
-    if(event.type != "touchmove"){
-        clientX = mousePositionX;
-        clientY = mousePositionY; 
-    }else{
+    if(event.type == "touchmove"){
         clientX = event.touches[0].pageX;
         clientY = event.touches[0].pageY;
     }
