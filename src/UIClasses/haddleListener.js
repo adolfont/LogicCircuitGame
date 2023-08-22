@@ -84,7 +84,9 @@ export function handleMouseUp(){
 }
 
 export function handleMouseDown(gui, e){
-    if(e.buttons==1){
+
+    if(e.buttons==1 || e.type == "touchstart"){
+        console.log("mousedown");
         interval = setInterval(function(){
             let diffoffsetX;
             let diffoffsetY;    
@@ -97,7 +99,7 @@ export function handleMouseDown(gui, e){
                 diffoffsetX = clientX - lastXMousePos;
                 diffoffsetY = clientY - lastYMousePos;
                 gui.offsetX -= diffoffsetX;
-                gui.offsetY -=diffoffsetY;
+                gui.offsetY -= diffoffsetY;
                 
                 lastXMousePos = clientX;
                 lastYMousePos = clientY;
@@ -111,8 +113,14 @@ export function handleMouseDown(gui, e){
 export function canvaGamaplayHandleMove(event, gui){
     let mousePositionX =  event.offsetX;
     let mousePositionY = event.offsetY;
-    clientX = mousePositionX;
-    clientY = mousePositionY;
+
+    if(event.type != "touchmove"){
+        clientX = mousePositionX;
+        clientY = mousePositionY; 
+    }else{
+        clientX = event.touches[0].pageX;
+        clientY = event.touches[0].pageY;
+    }
 
     if(gui.denielButton.press){
         gui.denielPin.updateDenielPinPos(mousePositionX,mousePositionY);
