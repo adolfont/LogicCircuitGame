@@ -12,8 +12,8 @@ var interval;
 var lastXMousePos = 0;
 var lastYMousePos = 0;
 var intervalNumber = 0;
-var clientX;
-var clientY;
+var clientX = 0;
+var clientY = 0;
 
 export function canvaGamaplayHandleClick(event, gameplayState){
     let clickX = event.offsetX;
@@ -87,14 +87,15 @@ export function handleMouseDown(gui, e){
 
     if(e.buttons==1 || e.type == "touchstart"){
         console.log("mousedown");
-        interval = setInterval(function(){
-            let diffoffsetX;
-            let diffoffsetY;    
 
-            if(intervalNumber == 0){
+        interval = setInterval(function(){
+            let diffoffsetX = 0;
+            let diffoffsetY = 0;    
+
+            if(lastXMousePos == 0 && lastYMousePos == 0
+                || (clientX - lastXMousePos) > 30 || (clientX - lastXMousePos) < -30){
                 lastXMousePos = clientX;
                 lastYMousePos = clientY;
-                intervalNumber++;
             }else{
                 diffoffsetX = clientX - lastXMousePos;
                 diffoffsetY = clientY - lastYMousePos;
@@ -103,9 +104,11 @@ export function handleMouseDown(gui, e){
                 
                 lastXMousePos = clientX;
                 lastYMousePos = clientY;
-                
-                console.log(clientX);
+
+                    
+                console.log(diffoffsetX);    
             }
+            
         }, 10);
     }
 }
