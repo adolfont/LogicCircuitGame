@@ -94,12 +94,6 @@
             document.getElementById("meuCanvas").height = window.innerHeight;
             document.getElementById("meuCanvas").getContext("2d").imageSmoothingEnabled = false;
 
-            document.getElementById("forCanva").style.width = window.screen.width + "px";
-            document.getElementById("forCanva").style.width = window.screen.height + "px";
-            document.getElementById("meuCanvas").width = window.screen.width;
-            document.getElementById("meuCanvas").height = window.screen.height;
-        
-
             const main = new GameplayState(document.getElementById("meuCanvas"), document.getElementById("mapCanvas"), window);
             main.start();
         </script>
