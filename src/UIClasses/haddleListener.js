@@ -80,6 +80,7 @@ function handleMouseDownInterval(){
 export function handleMouseUp(){
     clearInterval(interval)
     intervalNumber = 0
+    console.log("mouseUp!")
 }
 
 export function handleMouseDown(gui, e){
