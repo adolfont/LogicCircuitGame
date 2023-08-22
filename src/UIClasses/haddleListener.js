@@ -92,6 +92,12 @@ export function handleMouseDown(gui, e){
             let diffoffsetX = 0;
             let diffoffsetY = 0;    
 
+            /*
+            A diferença entre a posição anterior do toque e a posição mais recente do toque
+            não deverá ser maior que 30. Dessa forma são impedidos de acontecer
+            grandes saltos na camera. Sem essas restrições algumas posições de touch
+            são dadas erradas (acredito que por uma limitação de hardware (??)).
+            */
             if(lastXMousePos == 0 && lastYMousePos == 0
                 || (clientX - lastXMousePos) > 30 || (clientX - lastXMousePos) < -30){
                 lastXMousePos = clientX;
