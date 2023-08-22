@@ -88,12 +88,12 @@
         <script type = "module">
             import {GameplayState} from './GameOperatingClasses/States/GameplayState.js';
             
-            document.getElementById("forCanva").style.width = window.screen.availWidth * 0.5 + "px";
-            document.getElementById("forCanva").style.height = window.screen.availHeight * 0.5 + "px";
-            document.getElementById("meuCanvas").width = window.screen.availWidth * 0.5;
-            document.getElementById("meuCanvas").height = window.screen.availHeight * 0.5;
+            document.getElementById("forCanva").style.width = window.screen.availWidth + "px";
+            document.getElementById("forCanva").style.height = window.screen.availHeight + "px";
+            document.getElementById("meuCanvas").width = window.screen.availWidth;
+            document.getElementById("meuCanvas").height = window.screen.availHeight;
             document.getElementById("meuCanvas").getContext("2d").imageSmoothingEnabled = false;
-            document.body.style.zoom = 2;
+            //document.body.style.zoom = 2;
 
             const main = new GameplayState(document.getElementById("meuCanvas"), document.getElementById("mapCanvas"), window);
             main.start();
