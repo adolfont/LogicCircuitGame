@@ -1,3 +1,3 @@
-export const GAMEPLAY_SCALE = 1.5;
+export const GAMEPLAY_SCALE = 1;
 export const MINIMAP_SCALE = 0.1;
 export const SCALE_RELATIVE_TO_GAMEPLAY = MINIMAP_SCALE / GAMEPLAY_SCALE;
