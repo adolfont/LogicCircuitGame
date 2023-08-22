@@ -49,11 +49,20 @@ export class GameplayState{
             canvaGamaplayHandleClick(event, state);
         });
 
+
         this.gameplayCanva.addEventListener('mousedown', function(event){
             handleMouseDown(state.gameplayGui, event);
         });
 
+        this.gameplayCanva.addEventListener('touchstart', function(event){
+            handleMouseDown(state.gameplayGui, event);
+        });
+
         this.gameplayCanva.addEventListener('mouseup', function(event){
+            handleMouseUp();
+        });
+
+        this.gameplayCanva.addEventListener('touchend', function(event){
             handleMouseUp();
         });
 
@@ -65,6 +74,7 @@ export class GameplayState{
         this.mapCanva.addEventListener('mousemove', (event)=>{
             canvaMiniMapHandleMove(event, state);
         });
+        
 
 
         setInterval(()=>{

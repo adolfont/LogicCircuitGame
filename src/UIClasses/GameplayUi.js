@@ -114,6 +114,10 @@ export class GameplayUi{
             canvaGamaplayHandleMove(event, this);
         });
 
+        this.canva.addEventListener('touchmove', (event)=>{
+            canvaGamaplayHandleMove(event, this);
+        });
+
 
         this.onLight.src = "./res/genSprites/onLamp.png";
         this.offLight.src = "./res/genSprites/offLamp.png";
