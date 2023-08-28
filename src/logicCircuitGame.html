@@ -42,13 +42,15 @@
 
         gameTextBox{
             position: absolute;
+            top: 75%;
             color: white;
-            font-size: 16pt;
+            font-size: 12pt;
             left: 50%;
             transform: translateX(-50%);
             bottom: 24px;
             width: 900px;
             height: 100px;
+            
             font-family: 'Press Start 2P', cursive;
             /*border: solid black;*/
         }
@@ -66,14 +68,14 @@
         }
 
         deniedPinBox{
-            top: 55%;
-            right: 0%;
+            top: 65%;
+            right: 3%;
             position: absolute;
             color: white;
             font-size: 12pt;
             bottom: 24px;
-            width: 200px;
-            height: 50px;
+            width: 80px;
+            height: 20px;
             font-family: 'Press Start 2P', cursive;
         }
 
@@ -90,11 +92,25 @@
 
         <script type = "module">
             import {GameplayState} from './GameOperatingClasses/States/GameplayState.js';
+
+            window.screen.orientation
             
-            document.getElementById("forCanva").style.width = window.screen.availWidth + "px";
-            document.getElementById("forCanva").style.height = window.screen.availHeight + "px";
-            document.getElementById("meuCanvas").width = window.screen.availWidth;
-            document.getElementById("meuCanvas").height = window.screen.availHeight;
+           if(window.screen.availWidth>window.screen.availHeight){
+                console.log(window.width);
+                document.getElementById("forCanva").style.width = window.innerWidth + "px";
+                document.getElementById("forCanva").style.height = window.innerHeight + "px";
+                document.getElementById("meuCanvas").width = window.innerWidth;
+                document.getElementById("meuCanvas").height = window.innerHeight;
+           }else{
+                document.getElementById("forCanva").style.width = window.screen.availWidth + "px";
+                document.getElementById("forCanva").style.height = window.screen.availHeight + "px";
+                document.getElementById("meuCanvas").width = window.screen.availWidth;
+                document.getElementById("meuCanvas").height = window.screen.availHeight;
+                window.screen.orientation.lockgit ("portrait");
+                document.getElementById("mapCanvas").style.display = "none";
+           }
+
+           
             document.getElementById("meuCanvas").getContext("2d").imageSmoothingEnabled = false;
             //document.body.style.zoom = 2;
 

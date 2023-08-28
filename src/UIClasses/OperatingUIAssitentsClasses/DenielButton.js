@@ -26,7 +26,7 @@ export class DenielButton{
 
     constructor(pin,manager,image){
         this.pin = pin;
-        this.textBox.setSufix("/ " + MAX);
+        this.textBox.setSufix(" / " + MAX);
         this.textBox.setTag(TEXTBOX_TAG)
         this.pinManager = manager;
         this.image = image

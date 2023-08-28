@@ -136,25 +136,25 @@ export function canvaGamaplayHandleMove(event, gui){
 
 
     if(gui.inCutScene != true){
-        if(mousePositionX >= GAME_CANVA_WIDTH*0.95){
+        if(mousePositionX >= GAME_CANVA_WIDTH*0.9){
             gui.horizontalPositiveMove= true;
         }else{
             gui.horizontalPositiveMove= false;
         }
         
-        if(mousePositionX<= GAME_CANVA_WIDTH*0.05){
+        if(mousePositionX<= GAME_CANVA_WIDTH*0.1){
             gui.horizontalNegativeMove = true;
         }else{
             gui.horizontalNegativeMove = false;
         }
     
-        if(mousePositionY >= GAME_CANVA_HEIGHT*0.95){
+        if(mousePositionY >= GAME_CANVA_HEIGHT*0.9){
             gui.verticalPositiveMove= true;
         }else{
             gui.verticalPositiveMove= false;
         }
         
-        if(mousePositionY<= GAME_CANVA_HEIGHT*0.05){
+        if(mousePositionY<= GAME_CANVA_HEIGHT*0.1){
             gui.verticalNegativeMove = true;
         }else{
             gui.verticalNegativeMove = false;
@@ -174,7 +174,7 @@ export function canvaMiniMapHandleClick(event, state){
 
 export function canvaMiniMapHandleMove(event, state){
     if(state.mapUi.focus){
-        let x = (event.offsetX  - OFFSET_WIDTH/2) / SCALE_RELATIVE_TO_GAMEPLAY;
+        let x = (event.offsetX  - OFFSET_WIDTH*0.8) / SCALE_RELATIVE_TO_GAMEPLAY;
         let y = (event.offsetY  - OFFSET_HEIGTH/2)/ SCALE_RELATIVE_TO_GAMEPLAY;
         state.gameplayGui.setOffsetCenter(x,y);
     }
