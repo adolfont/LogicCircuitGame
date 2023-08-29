@@ -1,5 +1,5 @@
-import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
-import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
+import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/config.js";
+import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/config.js";
 import { getRandomIntInclusive } from "../GameOperatingClasses/auxFuncs.js";
 import { GraphicElement } from "./GraphicElement.js";
 import { GAMEPLAY_SCALE } from "./constants.js";

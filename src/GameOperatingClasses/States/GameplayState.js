@@ -7,6 +7,7 @@ import { canvaMiniMapHandleMove } from "../../UIClasses/haddleListener.js";
 import {LevelManager} from "../../res/Levels/LevelManager.js";
 import { handleMouseDown } from "../../UIClasses/haddleListener.js";
 import { handleMouseUp } from "../../UIClasses/haddleListener.js";
+import { mapIsVisible } from "../config.js";
 
 export class GameplayState{
     wiondow;
@@ -65,27 +66,34 @@ export class GameplayState{
         this.gameplayCanva.addEventListener('touchend', function(event){
             handleMouseUp();
         });
+        
+        if(mapIsVisible){
+            this.mapUi = new GameplayMapUi(this.mapCanva, this.gameTree.G[0], this.gameplayGui);
+            this.mapCanva.addEventListener('click', function(event){
+                canvaMiniMapHandleClick(event, state);
+            });
 
-        this.mapUi = new GameplayMapUi(this.mapCanva, this.gameTree.G[0], this.gameplayGui);
-        this.mapCanva.addEventListener('click', function(event){
-            canvaMiniMapHandleClick(event, state);
-        });
-
-        this.mapCanva.addEventListener('mousemove', (event)=>{
-            canvaMiniMapHandleMove(event, state);
-        });
+            this.mapCanva.addEventListener('mousemove', (event)=>{
+                canvaMiniMapHandleMove(event, state);
+            });
+        }
+        
         
 
 
         setInterval(()=>{
             this.gameTree.listen()
             this.gameplayGui.paint();
-            this.mapUi.paint();
+            if(mapIsVisible){ 
+                this.mapUi.paint();
+            }
 
             //Caso o nivel tenha sido alterado
             if(this.currentLevel != this.levelManager.currentLevel){
                 this.gameplayGui.setLevel(this.levelManager.getCurrentLevel());
-                this.mapUi.setLevel(this.levelManager.getCurrentLevel());
+                if(mapIsVisible){
+                    this.mapUi.setLevel(this.levelManager.getCurrentLevel());
+                }
                 this.currentLevel = this.levelManager.getCurrentLevel();
                 this.gameTree = this.currentLevel.getGameTree();
             }

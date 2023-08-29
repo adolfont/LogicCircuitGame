@@ -1,5 +1,5 @@
-import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
-import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
+import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/config.js";
+import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/config.js";
 import {SCALE_RELATIVE_TO_GAMEPLAY} from "./constants.js";
 import { MINIMAP_SCALE } from "./constants.js";
 

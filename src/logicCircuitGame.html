@@ -92,6 +92,8 @@
 
         <script type = "module">
             import {GameplayState} from './GameOperatingClasses/States/GameplayState.js';
+            import {mapIsVisible} from './GameOperatingClasses/config.js';
+            import {disableMap} from './GameOperatingClasses/config.js';
 
             window.screen.orientation
             
@@ -107,6 +109,7 @@
                 document.getElementById("meuCanvas").width = window.screen.availWidth;
                 document.getElementById("meuCanvas").height = window.screen.availHeight;
                 document.getElementById("mapCanvas").style.display = "none";
+                disableMap();
            }
 
            

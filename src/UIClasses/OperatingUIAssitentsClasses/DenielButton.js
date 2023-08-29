@@ -1,5 +1,5 @@
-import { GAME_CANVA_HEIGHT } from "../../GameOperatingClasses/constant.js";
-import { GAME_CANVA_WIDTH } from "../../GameOperatingClasses/constant.js";
+import { GAME_CANVA_HEIGHT } from "../../GameOperatingClasses/config.js";
+import { GAME_CANVA_WIDTH } from "../../GameOperatingClasses/config.js";
 import {TextBox} from "../TextBox.js";
 import { DENIED_PIN_WIDTH} from "../GameplayUi.js";
 import { DENIED_PIN_HEIGHT } from "../GameplayUi.js";

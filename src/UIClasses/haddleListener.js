@@ -1,7 +1,7 @@
 import {CLICK_AREA_W} from "./GameplayUi.js";
 import {CLICK_AREA_H} from "./GameplayUi.js";
-import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/constant.js";
-import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/constant.js";
+import { GAME_CANVA_HEIGHT } from "../GameOperatingClasses/config.js";
+import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/config.js";
 import {GameplayUi} from "./GameplayUi.js";
 import { GameplayState } from "../GameOperatingClasses/States/GameplayState.js";
 import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
@@ -126,10 +126,6 @@ export function canvaGamaplayHandleMove(event, gui){
     clientX = mousePositionX;
     clientY = mousePositionY; 
 
-    if(event.type == "touchmove"){
-        clientX = event.touches[0].clientX;
-        clientY = event.touches[0].clientY;
-    }
 
     if(gui.denielButton.press){
         gui.denielPin.updateDenielPinPos(mousePositionX,mousePositionY);
