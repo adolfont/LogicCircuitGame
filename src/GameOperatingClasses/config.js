@@ -1,9 +1,14 @@
 export var GAME_CANVA_WIDTH;;
 export var GAME_CANVA_HEIGHT;
-export var mapIsVisible = true;;
+export var mapIsVisible = true;
+export var mobileMode = false;
 
 export function disableMap(){
     mapIsVisible = false;
+}
+
+export function enableMobileMode(){
+    mobileMode = true;
 }
 
 if(window.screen.availWidth>window.screen.availHeight){

@@ -1,3 +1,6 @@
+import { mobileMode } from "../GameOperatingClasses/config.js";
+import { GAME_CANVA_WIDTH } from "../GameOperatingClasses/config.js";
+
 export class TextBox{
     tag = "gameTextBox";
     text;
@@ -22,9 +25,18 @@ export class TextBox{
     setVisible(){
         this.element = document.createElement(this.tag);
         this.element.textContent = this.text;
+
+        if(mobileMode){
+            if(this.tag == "gameTextBox"){
+                this.element.style.width = GAME_CANVA_WIDTH*0.8 + "px"
+                this.element.style.fontSize = "6pt";
+            }else{
+                this.element.style.fontSize = "10pt";
+            }
+        }
+
         let div = document.getElementById("forCanva");
         div.appendChild(this.element);
-        //gameCanva.style = "";
         this.Visible = true;
     }
 

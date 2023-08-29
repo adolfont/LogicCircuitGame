@@ -68,8 +68,8 @@
         }
 
         deniedPinBox{
-            top: 65%;
-            right: 3%;
+            top: 60%;
+            right: 32px;
             position: absolute;
             color: white;
             font-size: 12pt;
@@ -94,6 +94,7 @@
             import {GameplayState} from './GameOperatingClasses/States/GameplayState.js';
             import {mapIsVisible} from './GameOperatingClasses/config.js';
             import {disableMap} from './GameOperatingClasses/config.js';
+            import {enableMobileMode} from './GameOperatingClasses/config.js'
 
             
             
@@ -109,6 +110,7 @@
                 document.getElementById("meuCanvas").height = window.screen.availHeight;
                 document.getElementById("mapCanvas").style.display = "none";
                 disableMap();
+                enableMobileMode();
            }
 
            
