@@ -113,7 +113,7 @@ export function handleMouseDown(gui, e){
                 lastYMousePos = clientY;
 
                     
-                console.log(diffoffsetX);    
+                console.log(clientX);    
             }
             
         }, 10);
@@ -126,6 +126,10 @@ export function canvaGamaplayHandleMove(event, gui){
     clientX = mousePositionX;
     clientY = mousePositionY; 
 
+    if(event.type == "touchmove"){
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+    }
 
     if(gui.denielButton.press){
         gui.denielPin.updateDenielPinPos(mousePositionX,mousePositionY);
