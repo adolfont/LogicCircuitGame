@@ -20,7 +20,9 @@ export function canvaGamaplayHandleClick(event, gameplayState){
     let clickY = event.offsetY;
     let gui = gameplayState.gameplayGui
 
-    gameplayState.mapUi.releaseFocus();
+    if(mapIsVisible){
+        gameplayState.mapUi.releaseFocus();
+    }
     gameplayState.gameplayGui.requestFocus();
 
     /*Se a posição do mouse está dento dos limites dos botões de atalho*/
