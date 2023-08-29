@@ -7,6 +7,7 @@ import { GameplayState } from "../GameOperatingClasses/States/GameplayState.js";
 import { SCALE_RELATIVE_TO_GAMEPLAY } from "./constants.js";
 import {OFFSET_WIDTH} from "./GameplayMapUI.js";
 import {OFFSET_HEIGTH} from "./GameplayMapUI.js";
+import {mapIsVisible} from "../GameOperatingClasses/config.js";
 
 var interval;
 var lastXMousePos = 0;
