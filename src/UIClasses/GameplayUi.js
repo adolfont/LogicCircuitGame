@@ -14,8 +14,8 @@ import { DenielPin } from "./OperatingUIAssitentsClasses/DenielPin.js";
 const DIALOG_BOX_TAG =  "gameTextBox";
 const SCORE_BOX_TAG = "gameScoreBox";
 
-const LIGHT_WIDTH = 29*GAMEPLAY_SCALE;
-const LIGHT_HEIGHT = 46*GAMEPLAY_SCALE;
+const LIGHT_WIDTH = 114*GAMEPLAY_SCALE;
+const LIGHT_HEIGHT = 95*GAMEPLAY_SCALE;
 
 const PORT_WIDTH = 62*GAMEPLAY_SCALE;
 const PORT_HEIGHT = 74*GAMEPLAY_SCALE;
@@ -262,7 +262,7 @@ export class GameplayUi{
     //redesenha toda a tela da gameplay
     paintGameBoard(head){
         const x = GAME_CANVA_WIDTH/2;
-        const y = EDGE;
+        const y = 0;
 
         this.offSetRecalculate();
 
@@ -278,10 +278,9 @@ export class GameplayUi{
         this.context.fillRect(0, 0, GAME_CANVA_WIDTH , GAME_CANVA_HEIGHT);
         
         this.decorGraphics.draw();
-        this.paintLine(x, y + EDGE, GAME_CANVA_WIDTH/2, y + EDGE);
         this.context.drawImage(light, x - LIGHT_WIDTH/ 2  - this.offsetX, y - this.offsetY , LIGHT_WIDTH, LIGHT_HEIGHT);
 
-        this.paintTree(head, GAME_CANVA_WIDTH/2 - this.offsetX , y + EDGE - this.offsetY);
+        this.paintTree(head, GAME_CANVA_WIDTH/2 - this.offsetX , y + LIGHT_HEIGHT - this.offsetY);
     }
 
     //desenha a arvore de portas
@@ -519,27 +518,6 @@ export class GameplayUi{
         this.context.translate((node.x - SHORTCUT_WIDTH/2)*(-1), (node.y + PORT_HEIGHT)*(-1));
     }
 
-    /*Calculo o angulo produzito por
-    uma reta vertical que passa pela cordenada x
-    de node1 e uma reta que intersecta node1 e
-    node2*/
-    angleCalculate(node1, node2){
-        let x1 = 0;
-        let y1 = -100 - node1.y;
-        let x2 = node2.x - node1.x;
-        let y2 = node2.y - node1.y + PORT_HEIGHT/2;
-
-        let angle = Math.acos((x1*x2+y1*y2)/
-                (Math.sqrt(x1*x1 + y1*y1)*Math.sqrt(x2*x2 + y2*y2)));
-
-        angle *= 57.2958;
-
-        if(x2 >= 0){
-            return angle;
-        }else{
-            return -angle;
-        }
-    }
 
     executeShortcut(){
         this.inCutScene = true;
@@ -563,7 +541,7 @@ export class GameplayUi{
             }else{
                 if(this.currentNode != null){
                     if(GAME_CANVA_WIDTH/2 - 10 <= this.currentNode.x && GAME_CANVA_WIDTH/2 + 10 >= this.currentNode.x &&
-                    GAME_CANVA_HEIGHT/2 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/2 + 10 >= this.currentNode.y){
+                    GAME_CANVA_HEIGHT/2.5 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/2.5 >= this.currentNode.y){
                         this.inCutScene = false
                         this.horizontalPositiveMove = false;
                         this.horizontalNegativeMove = false;
@@ -576,9 +554,9 @@ export class GameplayUi{
                             this.offsetX += 10;
                         }
                         
-                        if(GAME_CANVA_HEIGHT/2 - 10 > this.currentNode.y ){
+                        if(GAME_CANVA_HEIGHT/2.5 - 10 > this.currentNode.y ){
                             this.offsetY -= 10;
-                        }else if( GAME_CANVA_HEIGHT/2 + 10 < this.currentNode.y ){
+                        }else if( GAME_CANVA_HEIGHT/2.5 + 10 < this.currentNode.y ){
                             this.offsetY += 10;
                         }
                     }
