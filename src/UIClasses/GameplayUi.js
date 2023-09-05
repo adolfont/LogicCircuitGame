@@ -541,7 +541,7 @@ export class GameplayUi{
             }else{
                 if(this.currentNode != null){
                     if(GAME_CANVA_WIDTH/2 - 10 <= this.currentNode.x && GAME_CANVA_WIDTH/2 + 10 >= this.currentNode.x &&
-                    GAME_CANVA_HEIGHT/2.5 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/2.5 >= this.currentNode.y){
+                    GAME_CANVA_HEIGHT/3 - 10 <= this.currentNode.y && GAME_CANVA_HEIGHT/3 >= this.currentNode.y){
                         this.inCutScene = false
                         this.horizontalPositiveMove = false;
                         this.horizontalNegativeMove = false;
@@ -554,9 +554,9 @@ export class GameplayUi{
                             this.offsetX += 10;
                         }
                         
-                        if(GAME_CANVA_HEIGHT/2.5 - 10 > this.currentNode.y ){
+                        if(GAME_CANVA_HEIGHT/3 - 10 > this.currentNode.y ){
                             this.offsetY -= 10;
-                        }else if( GAME_CANVA_HEIGHT/2.5 + 10 < this.currentNode.y ){
+                        }else if( GAME_CANVA_HEIGHT/3 + 10 < this.currentNode.y ){
                             this.offsetY += 10;
                         }
                     }
