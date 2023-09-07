@@ -37,25 +37,25 @@ export class Level_1 extends Level{
     script_1(level){
         if(level.intervalCount==0){
             //level.imgCard.src = "/src/res/tutorialCards/tutorial1.png";
-            level.imgCard.src = "../tutorialCards/tutorial1.png";
+            level.imgCard.src = "/LogicCircuitGame/src/res/tutorialCards/tutorial1.png";
             level.UI.drawTemporaryImage(level.imgCard,300,300,240);
             level.UI.inCutScene = true;
             level.event = IMG_CARD_BOX_TYPE;
         }else if (level.intervalCount==400){
             //level.imgCard.src = "/src/res/tutorialCards/tutorial2.png";
-            level.imgCard.src = "../tutorialCards/tutorial2.png";
+            level.imgCard.src = "/LogicCircuitGame/src/res/tutorialCards/tutorial2.png";
             level.UI.drawTemporaryImage(level.imgCard,300,300,490);
             level.UI.inCutScene = true;
             level.event = IMG_CARD_BOX_TYPE;
         }else if (level.intervalCount==800){
             //level.imgCard.src = "/src/res/tutorialCards/tutorial3.png";
-            level.imgCard.src = "../tutorialCards/tutorial3.png";
+            level.imgCard.src = "/LogicCircuitGame/src/res/tutorialCards/tutorial3.png";
             level.UI.drawTemporaryImage(level.imgCard,300,300,740);
             level.UI.inCutScene = true;
             level.event = IMG_CARD_BOX_TYPE;
         }else if (level.intervalCount==1200){
             //level.imgCard.src = "/src/res/tutorialCards/tutorial4.png";
-            level.imgCard.src = "../tutorialCards/tutorial4.png";
+            level.imgCard.src = "/LogicCircuitGame/src/res/tutorialCards/tutorial4.png";
             level.UI.drawTemporaryImage(level.imgCard,300,300,990);
             level.UI.inCutScene = true;
             level.event = IMG_CARD_BOX_TYPE;
