@@ -10,6 +10,9 @@ import { TrasitionScreen } from "./TrasitionScreen.js";
 import { canvaGamaplayHandleClick } from "./haddleListener.js";
 import { DenielButton } from "./OperatingUIAssitentsClasses/DenielButton.js";
 import { DenielPin } from "./OperatingUIAssitentsClasses/DenielPin.js";
+import { TemporaryImageDrawing } from "./TemporaryImageDrawing.js";
+import {DIALOG_BOX_TYPE, IMG_CARD_BOX_TYPE} from "../res/Levels/levelSuperClass.js"
+
 
 const DIALOG_BOX_TAG =  "gameTextBox";
 const SCORE_BOX_TAG = "gameScoreBox";
@@ -97,6 +100,8 @@ export class GameplayUi{
 
     treeHead;
     level;
+
+    imgCard;
 
 
     constructor(canva, head, level, pinsManager){
@@ -186,6 +191,8 @@ export class GameplayUi{
 
         this.deniedPinImage.src =  "./res/pins/deniedPin.png";
 
+        this.imgCard = new TemporaryImageDrawing(this.context);
+
 
         this.verticalTube[ON].onload = ()=>{
             this.paint();
@@ -251,12 +258,20 @@ export class GameplayUi{
 
     /*Executa do evento do level*/
     paintLevelEvent(){
-        this.level.executeEvent();
+        let eventType = this.level.executeEvent();
 
-        if(!this.dialogBox.getVisible()){
-            this.dialogBox.setVisible();
+        if(eventType == DIALOG_BOX_TYPE){
+            if(!this.dialogBox.getVisible()){
+                this.dialogBox.setVisible();
+            }
+            this.dialogBox.setText(this.level.getEventString());
+        }else if(eventType == IMG_CARD_BOX_TYPE){
+            if(!this.imgCard.update()){
+                this.imgCard.draw();
+            }else{
+                this.inEvent = false;
+            }
         }
-        this.dialogBox.setText(this.level.getEventString());
     }
 
     //redesenha toda a tela da gameplay
@@ -628,5 +643,11 @@ export class GameplayUi{
 
     getDenielPinButton(){
         return this.denielButton;
+    }
+
+    drawTemporaryImage(image, width, height, time){
+        this.inEvent = true;
+
+        this.imgCard.setImage(image, width, height, time);
     }
 }

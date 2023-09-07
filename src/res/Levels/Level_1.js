@@ -1,9 +1,10 @@
-import { Level } from "./levelSuperClass.js";
+import { DIALOG_BOX_TYPE, IMG_CARD_BOX_TYPE, Level } from "./levelSuperClass.js";
 import { GameTree } from "../../GameOperatingClasses/Gameplay/GameTree.js";
-
 export class Level_1 extends Level{
     intervalCount = 0;
     eventString;
+    imgCard = new Image();
+
     
     constructor(levelMenager){
         super(levelMenager);
@@ -31,21 +32,49 @@ export class Level_1 extends Level{
     }
 
     /*script de evento do Level*/
+    
+    /*ISSO AQUI PRECISA SER REVISTO NÃO ESTÁ FUNCIONANDO*/
     script_1(level){
-        if(level.intervalCount<250){
-            level.eventString = "Obeserve a porta mais a direita na base. Suas duas entradas são verdadeiras e por isso, sendo uma porta AND, sua saída é verdadeira!"
-            level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 1]);
-            level.UI.executeShortcut();
+        if(level.intervalCount==0){
+            level.imgCard.src = "/src/res/tutorialCards/tutorial1.png";
+            level.UI.drawTemporaryImage(level.imgCard,300,300,240);
             level.UI.inCutScene = true;
-        }else if (level.intervalCount<500){
+            level.event = IMG_CARD_BOX_TYPE;
+        }else if (level.intervalCount==400){
+            level.imgCard.src = "/src/res/tutorialCards/tutorial2.png";
+            level.UI.drawTemporaryImage(level.imgCard,300,300,490);
+            level.UI.inCutScene = true;
+            level.event = IMG_CARD_BOX_TYPE;
+        }else if (level.intervalCount==800){
+            level.imgCard.src = "/src/res/tutorialCards/tutorial3.png";
+            level.UI.drawTemporaryImage(level.imgCard,300,300,740);
+            level.UI.inCutScene = true;
+            level.event = IMG_CARD_BOX_TYPE;
+        }else if (level.intervalCount==1200){
+            level.imgCard.src = "/src/res/tutorialCards/tutorial4.png";
+            level.UI.drawTemporaryImage(level.imgCard,300,300,990);
+            level.UI.inCutScene = true;
+            level.event = IMG_CARD_BOX_TYPE;
+        }else if(level.intervalCount>1600){
 
-            level.eventString = "Porém, a mesma porta tem uma saída diferente caso qualquer uma das suas entradas seja falsa."
-            level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 2]);
-            level.UI.executeShortcut();
-            level.UI.inCutScene = true;
-        }else{
-            level.UI.inCutScene = false;
-            level.eventString = "Tente interagir com a porta mais ao topo da arvore.";
+            if(level.intervalCount<2000){
+                level.eventString = "Obeserve a porta mais a direita na base. Suas duas entradas são verdadeiras e por isso, sendo uma porta AND, sua saída é verdadeira!"
+                level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 1]);
+                level.UI.executeShortcut();
+                level.UI.inCutScene = true;
+                level.event = DIALOG_BOX_TYPE;
+            }else if(level.intervalCount<2000){
+                level.eventString = "Porém, a mesma porta tem uma saída diferente caso qualquer uma das suas entradas seja falsa."
+                level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 2]);
+                level.UI.executeShortcut();
+                level.UI.inCutScene = true;
+                level.event = DIALOG_BOX_TYPE;
+            }else{
+                level.UI.inCutScene = false;
+                level.eventString = "Tente interagir com a porta mais ao topo da arvore.";
+                level.event = DIALOG_BOX_TYPE;
+            }
+
         }
 
         level.intervalCount ++;
