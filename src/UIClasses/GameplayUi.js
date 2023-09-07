@@ -11,7 +11,7 @@ import { canvaGamaplayHandleClick } from "./haddleListener.js";
 import { DenielButton } from "./OperatingUIAssitentsClasses/DenielButton.js";
 import { DenielPin } from "./OperatingUIAssitentsClasses/DenielPin.js";
 import { TemporaryImageDrawing } from "./TemporaryImageDrawing.js";
-import {DIALOG_BOX_TYPE, IMG_CARD_BOX_TYPE} from "../res/Levels/levelSuperClass.js"
+import {DIALOG_BOX_TYPE, IMG_CARD_BOX_TYPE, NONE_TYPE} from "../res/Levels/levelSuperClass.js"
 
 
 const DIALOG_BOX_TAG =  "gameTextBox";
@@ -265,11 +265,14 @@ export class GameplayUi{
                 this.dialogBox.setVisible();
             }
             this.dialogBox.setText(this.level.getEventString());
-        }else if(eventType == IMG_CARD_BOX_TYPE){
+        }else{
+            this.dialogBox.setUnvisible();
+            
+        }
+        
+        if(eventType == IMG_CARD_BOX_TYPE){
             if(!this.imgCard.update()){
                 this.imgCard.draw();
-            }else{
-                this.inEvent = false;
             }
         }
     }
@@ -646,8 +649,6 @@ export class GameplayUi{
     }
 
     drawTemporaryImage(image, width, height, time){
-        this.inEvent = true;
-
         this.imgCard.setImage(image, width, height, time);
     }
 }

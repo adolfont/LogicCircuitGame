@@ -1,4 +1,4 @@
-import { DIALOG_BOX_TYPE, IMG_CARD_BOX_TYPE, Level } from "./levelSuperClass.js";
+import { DIALOG_BOX_TYPE, IMG_CARD_BOX_TYPE, NONE_TYPE, Level } from "./levelSuperClass.js";
 import { GameTree } from "../../GameOperatingClasses/Gameplay/GameTree.js";
 export class Level_1 extends Level{
     intervalCount = 0;
@@ -67,7 +67,7 @@ export class Level_1 extends Level{
                 level.UI.executeShortcut();
                 level.UI.inCutScene = true;
                 level.event = DIALOG_BOX_TYPE;
-            }else if(level.intervalCount<2000){
+            }else if(level.intervalCount<2400){
                 level.eventString = "Porém, a mesma porta tem uma saída diferente caso qualquer uma das suas entradas seja falsa."
                 level.UI.setCurrentNode(level.gameTree.G[level.gameTree.G.length - 2]);
                 level.UI.executeShortcut();
@@ -85,16 +85,18 @@ export class Level_1 extends Level{
     }
 
     script_2(level){
-        if(level.intervalCount<1000){
-            level.intervalCount = 1000;
+        if(level.intervalCount<3000){
+            level.intervalCount = 3000;
         }
         level.UI.setCurrentNode(level.gameTree.G[0]);
         level.UI.executeShortcut();
 
-        if(level.intervalCount<1250){
+        if(level.intervalCount<3400){
             level.eventString = "Parabens! Você conseguiu energizar a torre!";
-        }else if(level.intervalCount<1500){
+            level.event = DIALOG_BOX_TYPE;
+        }else if(level.intervalCount<3800){
             level.eventString = "Agora observe a porta OR no topo. Ela terá sua saída verdadeira sempre que qualquer uma de suas entradas for verdadeira.";
+            level.event = DIALOG_BOX_TYPE;
         }else{
             level.inEventFlag = false;
             level.finalizeLevel();

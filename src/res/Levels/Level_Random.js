@@ -1,5 +1,6 @@
 import { Level } from "./levelSuperClass.js";
 import { GameTree } from "../../GameOperatingClasses/Gameplay/GameTree.js";
+import { DIALOG_BOX_TYPE } from "./levelSuperClass.js";
 
 var flag = false;
 
@@ -46,10 +47,14 @@ export class Level_Random extends Level{
         if(level.intervalCount<500){
             level.UI.inCutScene = false;
             level.eventString = "Esse é um Nivel gerado de forma randomizada.";
+            
+            level.event = DIALOG_BOX_TYPE;
         }else if (level.intervalCount<1000){
 
             level.UI.inCutScene = false;
             level.eventString = "Para finaliza-lo você deve energizar a torre!";
+            
+            level.event = DIALOG_BOX_TYPE;
         }else{
             level.inEventFlag = false;
         }
@@ -66,6 +71,8 @@ export class Level_Random extends Level{
 
         if(level.intervalCount<1500){
             level.eventString = "Parabens! Você conseguiu energizar a torre!";
+            
+            level.event = DIALOG_BOX_TYPE;
         }else{
             level.inEventFlag = false;
             level.finalizeLevel();
@@ -83,10 +90,14 @@ export class Level_Random extends Level{
         else if(level.intervalCount<500){
             level.eventString = "Observe a esta porta: não é possível visualizar a sua saída!"
             level.UI.inCutScene = true;
+            
+            level.event = DIALOG_BOX_TYPE;
         }else if (level.intervalCount<1000){
 
             level.eventString = "Logo, você terá mais trabalho para resolve-la. Tente deduziar a sua saída apartir de suas entradas."
             level.UI.inCutScene = true;
+            
+            level.event = DIALOG_BOX_TYPE;
         }else{
             level.UI.inCutScene = false;
             level.intervalCount = 0;

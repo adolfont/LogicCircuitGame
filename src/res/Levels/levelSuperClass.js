@@ -1,5 +1,6 @@
 export const IMG_CARD_BOX_TYPE = 1;
 export const DIALOG_BOX_TYPE = 0;
+export const NONE_TYPE = -1;
 
 export class Level{
     gameTree;
@@ -8,7 +9,7 @@ export class Level{
     scripts;    /*Guarda os scripts de evento do nivel*/
     scriptIndex = 0;
     levelMenager;
-    event = -1
+    event = NONE_TYPE;
 
     /*Para um evento ser iniciado, basta definir inEventFlag = true
     e então indicar o script a se executado por meio do scriptIndex*/
