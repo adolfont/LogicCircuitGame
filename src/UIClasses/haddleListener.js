@@ -77,10 +77,6 @@ export function canvaGamaplayHandleClick(event, gameplayState){
 
 }
 
-function handleMouseDownInterval(){
-
-}
-
 export function handleMouseUp(){
     clearInterval(interval)
     intervalNumber = 0
@@ -88,7 +84,7 @@ export function handleMouseUp(){
 
 export function handleMouseDown(gui, e){
 
-    if(e.buttons==1 || e.type == "touchstart"){
+    if((e.buttons==1 || e.type == "touchstart") && gui.inCutScene != true){
 
         interval = setInterval(function(){
             let diffoffsetX = 0;
@@ -135,33 +131,6 @@ export function canvaGamaplayHandleMove(event, gui){
 
     if(gui.denielButton.press){
         gui.denielPin.updateDenielPinPos(mousePositionX,mousePositionY);
-    }
-
-
-    if(gui.inCutScene != true){
-        if(mousePositionX >= GAME_CANVA_WIDTH*0.95){
-            gui.horizontalPositiveMove= true;
-        }else{
-            gui.horizontalPositiveMove= false;
-        }
-        
-        if(mousePositionX<= GAME_CANVA_WIDTH*0.05){
-            gui.horizontalNegativeMove = true;
-        }else{
-            gui.horizontalNegativeMove = false;
-        }
-    
-        if(mousePositionY >= GAME_CANVA_HEIGHT*0.95){
-            gui.verticalPositiveMove= true;
-        }else{
-            gui.verticalPositiveMove= false;
-        }
-        
-        if(mousePositionY<= GAME_CANVA_HEIGHT*0.05){
-            gui.verticalNegativeMove = true;
-        }else{
-            gui.verticalNegativeMove = false;
-        }
     }
 }
 
