@@ -55,7 +55,8 @@ export function canvaGamaplayHandleClick(event, gameplayState){
         if(clickX > gameplayState.gameTree.G[i].x - CLICK_AREA_W/2 && clickX < gameplayState.gameTree.G[i].x + CLICK_AREA_W/2
             && clickY > gameplayState.gameTree.G[i].y && clickY < gameplayState.gameTree.G[i].y + CLICK_AREA_H){
             
-            interval = null;
+            clearInterval(interval)
+            intervalNumber = 0
             if(gui.denielButton.press){
                 gameplayState.gameTree.G[i].denielApply();
                 gui.denielButton.pinManager.subDenielPin();
@@ -83,13 +84,11 @@ function handleMouseDownInterval(){
 export function handleMouseUp(){
     clearInterval(interval)
     intervalNumber = 0
-    console.log("mouseUp!")
 }
 
 export function handleMouseDown(gui, e){
 
     if(e.buttons==1 || e.type == "touchstart"){
-        console.log("mousedown");
 
         interval = setInterval(function(){
             let diffoffsetX = 0;
