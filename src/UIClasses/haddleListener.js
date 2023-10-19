@@ -93,7 +93,7 @@ export function handleMouseDown(gui, e){
 
             /*
             A diferença entre a posição anterior do toque e a posição mais recente do toque
-            não deverá ser maior que 30. Dessa forma são impedidos de acontecer
+            não deverá ser maior que 50. Dessa forma são impedidos de acontecer
             grandes saltos na camera. Sem essas restrições algumas posições de touch
             são dadas erradas (acredito que por uma limitação de hardware (??)).
             */
