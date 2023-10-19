@@ -15,15 +15,21 @@
 
 ### Portas
 
-##### Cada porta tem entradas e saídas recebidas e enviadas através das conexões. Suas entradas são aquelas conexões ligadas à parte inferior da porta, enquanto sua saída é aquela conexão ligada ao topo da porta. O tipo da porta combinada com as suas entradas podem resultar em diferentes valores de saída.
+##### Cada porta tem entradas e saídas recebidas e enviadas através das suas conexões. Suas entradas são aquelas conexões ligadas à parte inferior da porta, enquanto sua saída é aquela conexão ligada ao topo da porta. O tipo da porta combinada às suas entradas podem resultar em diferentes valores de saída.
 
 #### And
 
-##### Essas tem uma saída verdadeira se e somente se suas duas entradas forem verdadeira
+##### Essas tem uma saída verdadeira se e somente se suas duas entradas forem verdadeira. A resolução dessas portas rende ao jogador mais pontos que a resolução de uma porta or.
 
 #### Or
 
 ##### Essas tem uma saída verdadeira se qualquer uma de suas entradas for verdadeira
+
+#### Portas sem visualização
+
+##### Essas mostram sempre o valor de sua saída como falso, mesmo que esse seja verdadeiro. Logo, para resolve-la o jogador terá mais trabalho e por isso recebera mais pontos.
+
+### Pin
 
 
 <a href="https://4ntfer.github.io/LogicCircuitGame/main/src/logicCircuitGame.html">
