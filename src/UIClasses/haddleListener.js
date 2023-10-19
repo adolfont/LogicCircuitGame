@@ -84,7 +84,7 @@ export function handleMouseUp(){
 
 export function handleMouseDown(gui, e){
     clearInterval(interval)
-    
+
     if((e.buttons==1 || e.type == "touchstart") && gui.inCutScene != true){
 
         interval = setInterval(function(){
@@ -115,7 +115,7 @@ export function handleMouseDown(gui, e){
                 console.log(clientX);    
             }
             
-        }, 10);
+        }, 2);
     }
 }
 
