@@ -98,8 +98,8 @@ export function handleMouseDown(gui, e){
             são dadas erradas (acredito que por uma limitação de hardware (??)).
             */
             if(lastXMousePos == 0 && lastYMousePos == 0
-                || (clientX - lastXMousePos) > 30 || (clientX - lastXMousePos) < -30
-                || (clientY - lastYMousePos) > 30 || (clientY - lastYMousePos) < -30){
+                || (clientX - lastXMousePos) > 50 || (clientX - lastXMousePos) < -50
+                || (clientY - lastYMousePos) > 50 || (clientY - lastYMousePos) < -50){
                 lastXMousePos = clientX;
                 lastYMousePos = clientY;
             }else{
@@ -110,9 +110,7 @@ export function handleMouseDown(gui, e){
                 
                 lastXMousePos = clientX;
                 lastYMousePos = clientY;
-
-                    
-                console.log(clientX);    
+ 
             }
             
         }, 2);
