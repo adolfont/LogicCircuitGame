@@ -48,7 +48,7 @@
 
 ## Detalhes da implementação
 
-#### A implentação do funcionamento interno, isto é, a parte que não inclui a interface de usuário, utiliza uma estrutura de árvore, onde cada nó não folha é uma porta e deve consultar seus dois nós filho para saber a sua saída. Dessa forma, todo nó conhece seus filhos, mas não precisa conhecer seu pai.
+#### A implentação do funcionamento interno, isto é, a parte que não inclui a interface de usuário, utiliza uma estrutura de árvore, onde cada nó não folha é uma porta e deve consultar seus dois nós filhos para saber a sua saída. Dessa forma, todo nó conhece seus filhos, mas não precisa conhecer seu pai.
 
 <img width= "50%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/node_knows_diagram.png"/>
 
