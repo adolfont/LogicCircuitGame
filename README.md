@@ -2,10 +2,7 @@
 
 ## Um quebra cabeças de circuitos lógicos para ensino de pensamento computacional. Até o momento a implementação usa uma estrutura de arvore.
 
-## ____________________________________________________________________________________________________
-
 ## Manual
-
 
 ##### Todas as portas recebem duas entradas de portas abaixo delas e enviam uma saída para uma porta acima. Assim, os valores booleanos fluem de baixo para cima em uma estrutura de árvore. O objetivo do jogador é levar um valor verdadeiro até a porta mais ao topo.
 
@@ -19,6 +16,8 @@
 
 #### And
 
+<img src="[URL_da_Imagem](https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/andONOFF.gif)" alt="Texto Alternativo">
+
 ##### Essas tem uma saída verdadeira se e somente se suas duas entradas forem verdadeira. A resolução dessas portas rende ao jogador mais pontos que a resolução de uma porta or.
 
 #### Or
@@ -29,7 +28,7 @@
 
 ##### Essas mostram sempre o valor de sua saída como falso, mesmo que esse seja verdadeiro. Logo, para resolve-la o jogador terá mais trabalho e por isso recebera mais pontos.
 
-### Pin
+### Pin de negação
 
+#### Um pin pode alterar o valor da saída da porta aplicando uma negação à ela. Caso o jogador tenha pins a serem aplicados, existirá um botão no canto direito da tela. Para aplicar um pin a qualquer porta, basta clicar no botão e então clicar na porta.
 
-<a href="https://4ntfer.github.io/LogicCircuitGame/main/src/logicCircuitGame.html">
