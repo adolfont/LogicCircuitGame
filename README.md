@@ -16,7 +16,7 @@
 
 #### And
 
-<img src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/andONOFF.gif" alt="Texto Alternativo">
+![andPort](https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/andONOFF.gif | width = 200)
 
 ##### Essas tem uma saída verdadeira se e somente se suas duas entradas forem verdadeira. A resolução dessas portas rende ao jogador mais pontos que a resolução de uma porta or.
 
