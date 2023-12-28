@@ -59,7 +59,7 @@ GeraNivel(N)
   Onde N é o número de nós na árvore.
 
   A <- nó vazio
-  A <- GeraArvore(A,N)
+  GeraArvore(A,N)
   inicializa(A)
   retorna A
 
