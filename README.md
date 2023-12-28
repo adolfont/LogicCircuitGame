@@ -2,6 +2,7 @@
 
 #### Um quebra cabeças de circuitos lógicos para ensino de pensamento computacional. Até o momento a implementação usa uma estrutura de arvore. 
 #### Disponível para jogar em: https://4ntfer.github.io/LogicCircuitGame/src/logicCircuitGame.html
+#### Compativel com desktop e mobile.
 
 ## Manual
 
@@ -12,7 +13,7 @@
 ##### A energia na arvore carrega uma valor que pode ser verdadeiro ou falso, ou seja, há ou não há energia em uma determinada conexão entre as portas. Essa energia é originada nas torres localizadas nas posições mais inferiores de cada ramo da arvore, ou seja, seus nós folhas. Se uma conexão estiver brilhando, então ela carrega um valor booleano verdadeiro.
 
 ### Portas
-<img width= "50%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/port_apresentation.png"/>
+<img width= "70%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/port_apresentation.png"/>
 
 ##### Cada porta tem entradas e saídas recebidas e enviadas através das suas conexões. Suas entradas são aquelas conexões ligadas à parte inferior da porta, enquanto sua saída é aquela conexão ligada ao topo da porta. O tipo da porta combinada às suas entradas podem resultar em diferentes valores de saída. Portas com a sinalização em verde no painel podem ser modificadas pelo usuário.
 
