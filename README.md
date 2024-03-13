@@ -1,6 +1,6 @@
 # Arvore Lógica
 
-Um quebra cabeças de circuitos lógicos para ensino de pensamento computacional. Até o momento a implementação usa uma estrutura de arvore. 
+Um quebra cabeças de circuitos lógicos para o ensino de pensamento computacional. Até o momento. a implementação usa uma estrutura de árvore. 
 
 Disponível para jogar em: https://4ntfer.github.io/LogicCircuitGame/src/logicCircuitGame.html
 
@@ -12,7 +12,7 @@ Todas as portas recebem duas entradas de portas abaixo delas e enviam uma saída
 
 ### Valores Booleanos
 
-A energia na arvore carrega uma valor que pode ser verdadeiro ou falso, ou seja, há ou não há energia em uma determinada conexão entre as portas. Essa energia é originada nas torres localizadas nas posições mais inferiores de cada ramo da arvore, ou seja, seus nós folhas. Se uma conexão estiver brilhando, então ela carrega um valor booleano verdadeiro.
+A energia na árvore carrega uma valor que pode ser verdadeiro ou falso, ou seja, há ou não há energia em uma determinada conexão entre as portas. Essa energia é originada nas torres localizadas nas posições mais inferiores de cada ramo da árvore, ou seja, seus nós folhas. Se uma conexão estiver brilhando, então ela carrega um valor booleano verdadeiro.
 
 ### Portas
 <img width= "70%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/port_apresentation.png"/>
@@ -23,13 +23,13 @@ Cada porta tem entradas e saídas recebidas e enviadas através das suas conexõ
 
 <img width= "20%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/andONOFF.gif"/>
 
-Essas tem uma saída verdadeira se e somente se suas duas entradas forem verdadeira. A resolução dessas portas rende ao jogador mais pontos que a resolução de uma porta or.
+Essas tem uma saída verdadeira se e somente se suas duas entradas forem verdadeiras. A resolução dessas portas rende ao jogador mais pontos que a resolução de uma porta or.
 
 ### Or
 
 <img width= "20%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/orONOFF.gif"/>
 
-Essas tem uma saída verdadeira se qualquer uma de suas entradas for verdadeira
+Essas tem uma saída verdadeira se qualquer uma de suas entradas for verdadeira.
 
 ### Portas sem visualização
 <div style= "display: flex; justify-content:space-between; gap: 10px;">
@@ -41,20 +41,20 @@ Essas tem uma saída verdadeira se qualquer uma de suas entradas for verdadeira
 <img width= "70%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/apresentacaoNoVisualizePort.gif"/>
 
   
-Essas mostram sempre o valor de sua saída como falso, mesmo que esse seja verdadeiro. Logo, para resolve-la o jogador terá mais trabalho e por isso recebera mais pontos.
+Essas mostram sempre o valor de sua saída como falso, mesmo que esse seja verdadeiro. Logo, para resolvê-la o jogador terá mais trabalho e por isso receberá mais pontos.
 
 ### Pin de negação
 <img width= "70%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/PINEX.gif"/>
 
-Um pin pode alterar o valor da saída da porta aplicando uma negação à ela. Caso o jogador tenha pins a serem aplicados, existirá um botão no canto direito da tela. Novos pins são adquiridos conforme o jogador faz pontos e alguns niveis só podem ser concluidos com a utilização de pins. Para aplicar um pin a qualquer porta, basta clicar no botão e então clicar na porta.
+Um pin pode alterar o valor da saída da porta aplicando uma negação à ela. Caso o jogador tenha pins a serem aplicados, existirá um botão no canto direito da tela. Novos pins são adquiridos conforme o jogador faz pontos e alguns níveis só podem ser concluidos com a utilização de pins. Para aplicar um pin a qualquer porta, basta clicar no botão e então clicar na porta.
 
 ## Detalhes da implementação
 
-A implentação do funcionamento interno, isto é, a parte que não inclui a interface de usuário, utiliza uma estrutura de árvore, onde cada nó não folha é uma porta e deve consultar seus dois nós filhos para saber a sua saída. Dessa forma, todo nó conhece seus filhos, mas não precisa conhecer seu pai.
+A implementação do funcionamento interno, isto é, a parte que não inclui a interface de usuário, utiliza uma estrutura de árvore, onde cada nó não folha é uma porta e deve consultar seus dois nós filhos para saber a sua saída. Dessa forma, todo nó conhece seus filhos, mas não precisa conhecer seu pai.
 
 <img width= "50%" src="https://raw.githubusercontent.com/4ntFer/LogicCircuitGame/main/node_knows_diagram.png"/>
 
-A adoção dessa estrutura de árvore permitiu a implementação da geração aleátoria de niveis. Segue o pseudo-código do algorimo que gera uma árvore aleatória:
+A adoção dessa estrutura de árvore permitiu a implementação da geração aleátoria de níveis. Segue o pseudo-código do algoritmo que gera uma árvore aleatória:
 
 ```
 GeraNivel(N)
@@ -97,7 +97,7 @@ inicializa(A)
   
 ```
 
-Esse algoritmo foi facilmente modificado para a implementação das portas sem visualização e das portas não modificaveis
+Esse algoritmo foi facilmente modificado para a implementação das portas sem visualização e das portas não modificáveis.
 
 Além disso, por cada nível ser uma estrutura de dados árvore, é perfeitamente possível que os niveis pré definidos sejam salvos em arquivos para serem carregados mais tarde. Na verdade, é como o nível 1, o tutorial, é carregado de um arquivo json.
 
